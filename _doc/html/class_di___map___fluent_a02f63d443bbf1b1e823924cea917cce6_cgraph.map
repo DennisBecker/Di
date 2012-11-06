@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_di___map___fluent.html#a1c0367669d954d80c847c73bcd1ae176" title="store" alt="" coords="104,5,155,35"/>
+<area shape="rect" id="node7" href="$class_di___map___fluent.html#a597d5392e03245ce704de90c44d33101" title="wire" alt="" coords="107,59,152,88"/>
+<area shape="rect" id="node5" href="$class_di___map___fluent.html#ab90fa1f6f390913fed8670e6535dc180" title="_reset" alt="" coords="203,5,261,35"/>
+<area shape="rect" id="node9" href="$class_di___map___fluent.html#a9e638c488745c4fca9fcc5daa32c480f" title="_flush" alt="" coords="204,59,260,88"/>
+</map>

@@ -1,0 +1,50 @@
+{
+    "map": [
+        {
+            "Foo": {
+                "arguments": ["I R Baboon!"],
+                "dependencies": [
+                    {
+                        "id": "Database1",
+                        "classname": "Database",
+                        "arguments": ["foo", "bar", "baz"],
+                        "instance": null,
+                        "config": {
+                            "type": "constructor"
+                        }
+                    },
+                    {
+                        "id": "Logger1",
+                        "classname": "Logger",
+                        "instance": null,
+                        "config": {
+                            "type": "method",
+                            "value": "setLogger"
+                        }         
+                    }
+                ]
+            },
+			"Bar": {
+                "constructor": "getInstance",   
+                "dependencies": [
+                    {
+                        "id": "Database1",
+                        "classname": "Database",
+                        "instance": null,
+                        "config": {
+                            "type": "constructor"
+                        }
+                    },
+                    {
+                        "id": "Logger1",
+                        "classname": "Logger",
+                        "instance": null,
+                        "config": {
+                            "type": "constructor"
+                        }         
+                    }
+                ]
+			}
+        }
+    ]
+}

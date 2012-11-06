@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_di___collection.html#a77f6895b80dcbd8e858b8c79369f1738" title="addDependency" alt="" coords="179,59,293,88"/>
+<area shape="rect" id="node5" href="$class_di___collection.html#ad21d892fadef484b88a98013e6785089" title="_initIndexByDependency" alt="" coords="361,5,527,35"/>
+<area shape="rect" id="node7" href="$class_di___collection.html#a42361fdf2bff008dcc7e0a06b0af14a5" title="_initIndexByTarget" alt="" coords="380,59,508,88"/>
+<area shape="rect" id="node9" href="$class_di___dependency.html#a2de0f0e912c2f4137ae5ce2687ef8fc5" title="Di_Dependency::getClassname" alt="" coords="343,112,545,141"/>
+</map>

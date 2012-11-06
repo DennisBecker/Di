@@ -71,7 +71,6 @@ Usage
 
 4. The 4th way is using Di with Typehint based dependency maps. You only need to define the correct typehints within your classes and the Di_Map_Typehint parser does all the work for you.
 
-
 **box 2**
 
     $Foo = $map
@@ -97,12 +96,12 @@ You will find detailed demonstrations (and the corresponding sourcecode) in the 
  * ***dynamic*** *dependency map* (fluent Interface) and a class with singleton pattern
  * ***annotation*** dependency map (annotations inline) and manually wiring
  * ***annotation*** dependency map (annotations inline) and automatic wiring (magic)
- * ***annotation*** dependency map (annotations inline) and a class with singleton pattern 
+ * ***annotation*** dependency map (annotations inline) and a class with singleton pattern
  * ***typehint*** dependency map (plain vanilla PHP) and manually wiring
  * ***typehint*** dependency map (plain vanilla PHP) and automatic wiring (magic)
  * ***typehint*** dependency map (plain vanilla PHP) and a class with singleton pattern 
 
-
+    
 API Documentation
 -------------------------
 The sourcecode is fully documented and you will find the documentation in the folder ***./_doc/html/***.
