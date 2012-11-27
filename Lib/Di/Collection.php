@@ -181,16 +181,16 @@ class Di_Collection implements ArrayAccess, Iterator
      */
     public function addDependencies($classname, array $dependencies)
     {
-    	$result = true;
+        $result = true;
 
         foreach ($dependencies as $dependency) {
             $result = $result && $this->addDependency($classname, $dependency);
 
             if (!$result) {
-            	throw new Di_Exception(
-					'Dependencies could not be added! The dependency with identifier: "'.
-            		$dependency->getIdentifier().'" produced an error. No Dependencies added.'
-            	);
+                throw new Di_Exception(
+                    'Dependencies could not be added! The dependency with identifier: "'.
+                    $dependency->getIdentifier().'" produced an error. No Dependencies added.'
+                );
             }
         }
 
@@ -213,10 +213,10 @@ class Di_Collection implements ArrayAccess, Iterator
      */
     public function addArguments($classname, array $arguments)
     {
-    	$this->_arguments[$classname] = $arguments;
+        $this->_arguments[$classname] = $arguments;
     }
 
-	/**
+    /**
      * Returns the arguments of a target
      *
      * This method is intend to return the arguments of a target.
@@ -231,12 +231,12 @@ class Di_Collection implements ArrayAccess, Iterator
      */
     public function getArguments($classname)
     {
-    	return (isset($this->_arguments[$classname])) ?
+        return (isset($this->_arguments[$classname])) ?
             $this->_arguments[$classname] :
             null;
     }
 
-	/**
+    /**
      * Setter for constructor
      *
      * This method is intend to set the name of the constructor method
@@ -253,10 +253,10 @@ class Di_Collection implements ArrayAccess, Iterator
      */
     public function setConstructor($classname, $constructor)
     {
-		$this->_constructor[$classname] = $constructor;
+        $this->_constructor[$classname] = $constructor;
     }
 
-	/**
+    /**
      * Getter for constructor
      *
      * This method is intend to return the name of the constructor method
@@ -272,12 +272,12 @@ class Di_Collection implements ArrayAccess, Iterator
      */
     public function getConstructor($classname)
     {
-    	return (isset($this->_constructor[$classname])) ?
+        return (isset($this->_constructor[$classname])) ?
             $this->_constructor[$classname] :
             null;
     }
 
-	/**
+    /**
      * Returns the setup by a given target
      *
      * This method is intend to return the setup of a target.
@@ -292,17 +292,17 @@ class Di_Collection implements ArrayAccess, Iterator
      */
     public function getSetup($classname)
     {
-		return array(
-			'arguments'	   => (isset($this->_arguments[$classname])) ?
-            	$this->_arguments[$classname] :
-            	null,
-			'constructor'  => (isset($this->_constructor[$classname])) ?
-            	$this->_constructor[$classname] :
-            	null,
-			'dependencies' => (isset($this->_indexByTarget[$classname])) ?
-            	$this->_indexByTarget[$classname] :
-            	null
-		);
+        return array(
+            'arguments'    => (isset($this->_arguments[$classname])) ?
+                $this->_arguments[$classname] :
+                null,
+            'constructor'  => (isset($this->_constructor[$classname])) ?
+                $this->_constructor[$classname] :
+                null,
+            'dependencies' => (isset($this->_indexByTarget[$classname])) ?
+                $this->_indexByTarget[$classname] :
+                null
+        );
     }
 
     /**

@@ -110,7 +110,7 @@
         </li>
         <li>
             Fully documented<br />
-            <span class="smaller">Every part in Di is covered by a comment and/or an detailed howto</span>
+            <span class="smaller">Every part in Di is covered by a comment and/or a detailed howto</span>
         </li>
         <li>
             Unit-Tested<br />
@@ -159,7 +159,7 @@
                 Example call<br />
                 <span class="snippet">
                 <pre>
-<span style="color: rgb(0, 0, 187);">$Foo&nbsp;</span><span style="color: rgb(0, 119, 0);">=&nbsp;</span><span style="color: rgb(0, 0, 187);">$container</span><span style="color: rgb(0, 119, 0);">-&gt;</span><span style="color: rgb(0, 0, 187);">build</span><span style="color: rgb(0, 119, 0);">(</span><span style="color: rgb(221, 0, 0);">'foo'</span><span style="color: rgb(0, 119, 0);">);&nbsp;</span>
+<span style="color: rgb(0, 0, 187);">$Foo&nbsp;</span><span style="color: rgb(0, 119, 0);">=&nbsp;</span><span style="color: rgb(0, 0, 187);">$container</span><span style="color: rgb(0, 119, 0);">-&gt;</span><span style="color: rgb(0, 0, 187);">build</span><span style="color: rgb(0, 119, 0);">(</span><span style="color: rgb(221, 0, 0);">'Foo'</span><span style="color: rgb(0, 119, 0);">);&nbsp;</span>
                 </pre>
                 </span>
             </blockquote>
@@ -185,12 +185,12 @@
             as a sideeffect: it produces good readable code (<a href="https://en.wikipedia.org/wiki/Fluent_interface" target="_blank">as recommended
             by Martin Fowler</a>).<br />
             <blockquote>
-	            Example call<br />
-	            <span class="snippet">
+                Example call<br />
+                <span class="snippet">
                     <pre>
 <span style="color: rgb(0, 0, 187);">$Foo&nbsp;</span><span style="color: rgb(0, 119, 0);">=&nbsp;</span><span style="color: rgb(0, 0, 187);">$map
            </span><span style="color: rgb(0, 119, 0);">-&gt;</span><span style="color: rgb(0, 0, 187);">classname</span><span style="color: rgb(0, 119, 0);">(</span><span style="color: rgb(221, 0, 0);">'Foo'</span><span style="color: rgb(0, 119, 0);">)<br /><span style="color: rgb(0, 0, 187);">           </span>-&gt;<span style="color: rgb(0, 0, 187);">dependsOn</span>(<span style="color: rgb(221, 0, 0);">'Database'</span>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;</span><span style="color: rgb(0, 0, 187);">id</span><span style="color: rgb(0, 119, 0);">(</span><span style="color: rgb(221, 0, 0);">'Database1'</span><span style="color: rgb(0, 119, 0);">)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;</span><span style="color: rgb(0, 0, 187);">instance</span><span style="color: rgb(0, 119, 0);">(</span><span style="color: rgb(0, 0, 187);">$Database1</span><span style="color: rgb(0, 119, 0);">)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;</span><span style="color: rgb(0, 0, 187);">configuration</span><span style="color: rgb(0, 119, 0);">(array(</span><span style="color: rgb(221, 0, 0);">'type'&nbsp;</span><span style="color: rgb(0, 119, 0);">=&gt;&nbsp;</span><span style="color: rgb(221, 0, 0);"><span style="color: rgb(153,153,0);">Di_Dependency::TYPE_CONSTRUCTOR</span></span><span style="color: rgb(0, 119, 0);"><span style="color: rgb(221, 0, 0);">, 'position'&nbsp;</span>=&gt;&nbsp;1))</span><span style="color: rgb(0, 119, 0);"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&gt;</span><span style="color: rgb(0, 0, 187);">build</span><span style="color: rgb(0, 119, 0);">(array(<span style="color: rgb(221, 0, 0);">'custom argument passed to Foo()</span><span style="color: rgb(221, 0, 0);">'</span>));&nbsp;</span><span style="color: rgb(0, 0, 187);"></span>
-	               </pre>
+                   </pre>
                 </span>
             </blockquote>
             </p>
@@ -217,25 +217,34 @@
             <a href="demonstration-static-1.php"><i><b>static</b> dependency map</i> (JSON format) and <i>manually wiring</i></a>
         </li>
         <li>
-            <a href="demonstration-static-2.php"><i><b>static</b> dependency map</i> (JSON format) and <i>automatic wiring</i> (magic)</a>
+            <a href="demonstration-static-2.php"><i><b>static</b> dependency map</i> (JSON format) and <i>automagic wiring</i></a>
         </li>
         <li>
             <a href="demonstration-static-3.php"><i><b>static</b> dependency map</i> (JSON format) and a class with singleton pattern</a>
         </li>
         <li>
+            <a href="demonstration-static-4.php"><i><b>static</b> dependency map</i> (JSON format) and using frozen objects so we don't need to wire</a>
+        </li>
+        <li>
+            <a href="demonstration-static-5.php"><i><b>static</b> dependency map</i> (JSON format) Export an existing Di_Collection (from any Di_Map instance) to a static map and freeze instances</a>
+        </li>
+        <li>
             <a href="demonstration-fluent-1.php"><i><b>dynamic</b> dependency map</i> (fluent Interface) and <i>manually wiring</i></a>
         </li>
         <li>
-            <a href="demonstration-fluent-2.php"><i><b>dynamic</b> dependency map</i> (fluent Interface) and <i>automatic wiring</i> (magic)</a>
+            <a href="demonstration-fluent-2.php"><i><b>dynamic</b> dependency map</i> (fluent Interface) and <i>automagic wiring</i></a>
         </li>
         <li>
             <a href="demonstration-fluent-3.php"><i><b>dynamic</b> dependency map</i> (fluent Interface) and a class with singleton pattern</a>
         </li>
         <li>
+            <a href="demonstration-fluent-4.php"><i><b>dynamic</b> dependency map</i> (fluent Interface), <i>automagic wiring</i> and <i>export to static dependency map (JSON format)</i></a>
+        </li>
+        <li>
             <a href="demonstration-annotation-1.php"><i><b>annotation</b> dependency map</i> (annotations inline) and <i>manually wiring</i></a>
         </li>
         <li>
-            <a href="demonstration-annotation-2.php"><i><b>annotation</b> dependency map</i> (annotations inline) and <i>automatic wiring</i> (magic)</a>
+            <a href="demonstration-annotation-2.php"><i><b>annotation</b> dependency map</i> (annotations inline) and <i>automagic wiring</i></a>
         </li>
         <li>
             <a href="demonstration-annotation-3.php"><i><b>annotation</b> dependency map</i> (annotations inline) and a class with singleton pattern</a>
@@ -244,7 +253,7 @@
             <a href="demonstration-typehint-1.php"><i><b>typehint</b> dependency map</i> (plain vanilla PHP) and <i>manually wiring</i></a>
         </li>
         <li>
-            <a href="demonstration-typehint-2.php"><i><b>typehint</b> dependency map</i> (plain vanilla PHP) and <i>automatic wiring</i> (magic)</a>
+            <a href="demonstration-typehint-2.php"><i><b>typehint</b> dependency map</i> (plain vanilla PHP) and <i>automagic wiring</i></a>
         </li>
         <li>
             <a href="demonstration-typehint-3.php"><i><b>typehint</b> dependency map</i> (plain vanilla PHP) and a class with singleton pattern</a>
@@ -258,13 +267,13 @@
     This is the current roadmap of new features:
     <ul>
         <li>
-            <p>Map-builder which takes a <a href="../_doc/html/class_di___collection.html" target="_blank">Di_Collection</a> as input and creates (build/write) a <b>static</b> <i>dependency map</i> (e.g. in JSON-Format) of it</p>
+            <p><strike>Map-builder which takes a <a href="../_doc/html/class_di___collection.html" target="_blank">Di_Collection</a> as input and creates (build/write) a <b>static</b> <i>dependency map</i> (e.g. in JSON-Format) of it</strike></p>
         </li>
         <li>
-            <p>Storing of required dependencies within the static dependency map (PHP Object Freezer <a href="https://github.com/sebastianbergmann/php-object-freezer" target="_blank">https://github.com/sebastianbergmann/php-object-freezer</a>)</p>
+            <p><strike>Storing of required dependencies within the static dependency map (PHP Object Freezer <a href="https://github.com/sebastianbergmann/php-object-freezer" target="_blank">https://github.com/sebastianbergmann/php-object-freezer</a>)</strike></p>
         </li>
         <li>
-        	<p>Increasing code-coverage of the Unit-Tests from approximately 79% up to ~100% ;)</p>
+            <p>Increasing code-coverage of the Unit-Tests from approximately 79% up to ~100% ;)</p>
         </li>
     </ul>
 

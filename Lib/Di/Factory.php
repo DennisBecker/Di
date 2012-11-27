@@ -54,8 +54,8 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB.'Exception.php';
-require_once DI_PATH_LIB.'Dependency.php';
+require_once DI_PATH_LIB_DI.'Exception.php';
+require_once DI_PATH_LIB_DI.'Dependency.php';
 
 /**
  * Di Factory
@@ -132,10 +132,10 @@ class Di_Factory
 
         // default
         if ($dependencies) {
-        	// store constructor
-			if (isset($dependencies['constructor'])) {
-				$this->_constructor = $dependencies['constructor'];
-			}
+            // store constructor
+            if (isset($dependencies['constructor'])) {
+                $this->_constructor = $dependencies['constructor'];
+            }
 
             // create instance with dependencies
             return $this->_instanciateWithDependencies($classname, $dependencies);
@@ -243,17 +243,17 @@ class Di_Factory
             // get configuration for injection
             $configuration = $dependency->getConfiguration();
 
-			// store position for injection if type = configuration
+            // store position for injection if type = configuration
             if (!isset($configuration['position'])) {
-	            $configuration['position'] = (isset($injections[$configuration['type']]))
-	            	? count($injections[$configuration['type']]) + 1
-	            	: 1;
+                $configuration['position'] = (isset($injections[$configuration['type']]))
+                    ? count($injections[$configuration['type']]) + 1
+                    : 1;
             }
 
             $injections[$configuration['type']][] = array(
                 'instance' => $dependency->getInstance(),
                 'value'    => (isset($configuration['value'])) ? $configuration['value'] : null,
-            	'position' => $configuration['position']
+                'position' => $configuration['position']
             );
         }
 
@@ -270,7 +270,7 @@ class Di_Factory
      *
      * @param string $classname The name of the class to instanciate
      * @param mixed  $arguments Can be either a list of additional arguments passed to constructor when instance get
-     * 						    created or NULL if no arguments needed (default = null)
+     *                          created or NULL if no arguments needed (default = null)
      *
      * @return  object The new created instance
      * @access  private
@@ -311,17 +311,17 @@ class Di_Factory
             // process injections for constructor
             if ($constructorInjections) {
 
-            	$arguments = $this->_mergeArguments($constructorInjections, $arguments);
+                $arguments = $this->_mergeArguments($constructorInjections, $arguments);
 
-            	/*
-            	if (!empty($arguments)) {
-	            	// combine with arguments
-	            	$arguments = $this->_mergeArguments($constructorInjections, $arguments);
-	                //$arguments = array_merge($constructorInjections, $arguments);
-            	} else {
-            		$arguments = $this->_mergeArguments($constructorInjections, $arguments);
-            	}
-            	*/
+                /*
+                if (!empty($arguments)) {
+                    // combine with arguments
+                    $arguments = $this->_mergeArguments($constructorInjections, $arguments);
+                    //$arguments = array_merge($constructorInjections, $arguments);
+                } else {
+                    $arguments = $this->_mergeArguments($constructorInjections, $arguments);
+                }
+                */
             }
         }
 
@@ -374,12 +374,12 @@ class Di_Factory
         if ($this->_instanciable) {
             return $this->construct($classname, $arguments);
         } else {
-        	if (is_array($this->_constructor)) {
-            	return call_user_func_array($this->_constructor, $arguments);
-        	} else {
-        		// TODO: _constructor == null = suchen?
-        		return call_user_func_array(array($classname, $this->_constructor), $arguments);
-        	}
+            if (is_array($this->_constructor)) {
+                return call_user_func_array($this->_constructor, $arguments);
+            } else {
+                // TODO: _constructor == null = suchen?
+                return call_user_func_array(array($classname, $this->_constructor), $arguments);
+            }
         }
     }
 
@@ -460,7 +460,7 @@ class Di_Factory
             default:
                 // break intentionally omitted
             case Di_Dependency::TYPE_CONSTRUCTOR:
-				return $injections[$type];
+                return $injections[$type];
                 break;
             }
         }
@@ -485,36 +485,36 @@ class Di_Factory
      */
     private function _mergeArguments(array $injections, array $arguments)
     {
-    	// get total count of arguments
-		$sum = count($injections) + count($arguments);
+        // get total count of arguments
+        $sum = count($injections) + count($arguments);
 
-		// prepare an array with null values for given count
-		$result = array_fill(0, $sum, null);
+        // prepare an array with null values for given count
+        $result = array_fill(0, $sum, null);
 
-		// loop counter for positioning of unpositioned constructor injections
-		$injectionPosition = 1;
+        // loop counter for positioning of unpositioned constructor injections
+        $injectionPosition = 1;
 
-		// fill in array with given position
-		foreach ($injections as $injection) {
-			if ($injection['position']) {
-				$position = $injection['position']-1;
-			} else {
-				$position = $injectionPosition;
-			}
+        // fill in array with given position
+        foreach ($injections as $injection) {
+            if ($injection['position']) {
+                $position = $injection['position']-1;
+            } else {
+                $position = $injectionPosition;
+            }
 
-			$result[$injection['position']-1] = $injection['instance'];
+            $result[$injection['position']-1] = $injection['instance'];
 
-			$injectionPosition++;
-		}
+            $injectionPosition++;
+        }
 
-		// iterate over remaining arguments and fill in the holes
-		foreach ($result as $key => $value) {
-			if ($result[$key] === null) {
-				$result[$key] = array_shift($arguments);
-			}
-		}
+        // iterate over remaining arguments and fill in the holes
+        foreach ($result as $key => $value) {
+            if ($result[$key] === null) {
+                $result[$key] = array_shift($arguments);
+            }
+        }
 
-    	return $result;
+        return $result;
     }
 
     /**
@@ -532,7 +532,7 @@ class Di_Factory
     {
         return array(
             'constructor' => array(),
-            'setter'	  => array(),
+            'setter'      => array(),
             'property'    => array()
         );
     }

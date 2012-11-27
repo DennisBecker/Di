@@ -54,8 +54,18 @@
  * @since      File available since Release 1.0.0
  */
 
-// get absolute path
-define('DI_PATH_LIB', rtrim(dirname(__FILE__)).DIRECTORY_SEPARATOR);
+// get absolute path to lib/di
+define('DI_PATH_LIB_DI', rtrim(dirname(__FILE__)).DIRECTORY_SEPARATOR);
+
+// get absolute path to lib/di
+define(
+    'DI_PATH_LIB',
+    str_replace(
+        'Di'.DIRECTORY_SEPARATOR.'Lib'.DIRECTORY_SEPARATOR.'Di'.DIRECTORY_SEPARATOR,
+        'Di'.DIRECTORY_SEPARATOR.'Lib'.DIRECTORY_SEPARATOR,
+        DI_PATH_LIB_DI
+    )
+);
 
 // update include path'
 set_include_path(get_include_path().PATH_SEPARATOR.DI_PATH_LIB);

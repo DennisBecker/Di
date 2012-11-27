@@ -9,15 +9,15 @@ require_once '../Lib/Di/Bootstrap.php';
 /**
  * Required classes (files) for fluent demonstration #3
  */
-require_once DI_PATH_LIB.'Collection.php';
-require_once DI_PATH_LIB.'Dependency.php';
-require_once DI_PATH_LIB.'Map/Fluent.php';
-require_once DI_PATH_LIB.'Factory.php';
-require_once DI_PATH_LIB.'Container.php';
+require_once DI_PATH_LIB_DI.'Collection.php';
+require_once DI_PATH_LIB_DI.'Dependency.php';
+require_once DI_PATH_LIB_DI.'Map/Fluent.php';
+require_once DI_PATH_LIB_DI.'Factory.php';
+require_once DI_PATH_LIB_DI.'Container.php';
 
 
 /**
- * Foo 		        (class with dependencies to Database, Logger) public constructor
+ * Foo              (class with dependencies to Database, Logger) public constructor
  * Bar              (class with dependencies to Database, Logger) private constructor = singleton
  * Database, Logger (dependencies)
  */
@@ -56,19 +56,19 @@ $map        = new Di_Map_Fluent($collection, $dependency);
  */
 $map->generate()
 
-	->classname('Bar', null, 'getInstance')
+    ->classname('Bar', null, 'getInstance')
 
-	->dependsOn('Database')
-	->identifier('Database1')
-	->configuration(
-		array('type' => Di_Dependency::TYPE_CONSTRUCTOR, 'position' => 1)
-	)
+    ->dependsOn('Database')
+    ->identifier('Database1')
+    ->configuration(
+        array('type' => Di_Dependency::TYPE_CONSTRUCTOR, 'position' => 1)
+    )
 
-	->dependsOn('Logger')
-	->identifier('Logger1')
-	->configuration(
-		array('type' => Di_Dependency::TYPE_CONSTRUCTOR, 'position' => 2)
-	);
+    ->dependsOn('Logger')
+    ->identifier('Logger1')
+    ->configuration(
+        array('type' => Di_Dependency::TYPE_CONSTRUCTOR, 'position' => 2)
+    );
 
 
 /**
@@ -109,7 +109,7 @@ $Bar->test();
  * Check against instance
  */
 if (get_class($Bar) === 'Bar') {
-	echo '<pre>Successfully created instance of class Bar.</pre>';
+    echo '<pre>Successfully created instance of class Bar.</pre>';
 }
 
 
@@ -136,7 +136,7 @@ $Bar2->test();
  * Check against instance
  */
 if (get_class($Bar2) === 'Bar') {
-	echo '<pre>Successfully created instance of class Bar.</pre>';
+    echo '<pre>Successfully created instance of class Bar.</pre>';
 }
 
 
@@ -152,11 +152,11 @@ echo '</pre>';
  * Check that we got two different instances
  */
 if ($Bar !== $Bar2) {
-	echo '<pre>Everything seems to works fine. We retrieved two separate instances.</pre>';
+    echo '<pre>Everything seems to works fine. We retrieved two separate instances.</pre>';
 }
 
 ?>
 
 <p>
-	<a href="index.php#Demonstration">Back to index</a>
+    <a href="index.php#Demonstration">Back to index</a>
 </p>

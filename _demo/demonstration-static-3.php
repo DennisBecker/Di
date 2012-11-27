@@ -9,15 +9,15 @@ require_once '../Lib/Di/Bootstrap.php';
 /**
  * Required classes (files) for static demonstration #3
  */
-require_once DI_PATH_LIB.'Collection.php';
-require_once DI_PATH_LIB.'Importer/Json.php';
-require_once DI_PATH_LIB.'Map/Static.php';
-require_once DI_PATH_LIB.'Factory.php';
-require_once DI_PATH_LIB.'Container.php';
+require_once DI_PATH_LIB_DI.'Collection.php';
+require_once DI_PATH_LIB_DI.'Importer/Json.php';
+require_once DI_PATH_LIB_DI.'Map/Static.php';
+require_once DI_PATH_LIB_DI.'Factory.php';
+require_once DI_PATH_LIB_DI.'Container.php';
 
 
 /**
- * Foo 		        (class with dependencies to Database, Logger) public constructor
+ * Foo              (class with dependencies to Database, Logger) public constructor
  * Bar              (class with dependencies to Database, Logger) private constructor = singleton
  * Database, Logger (dependencies)
  */
@@ -87,7 +87,7 @@ $Bar->test();
  * Check against instance
  */
 if (get_class($Bar) === 'Bar') {
-	echo '<pre>Successfully created instance of class Bar.</pre>';
+    echo '<pre>Successfully created instance of class Bar.</pre>';
 }
 
 
@@ -114,7 +114,7 @@ $Bar2->test();
  * Check against instance
  */
 if (get_class($Bar2) === 'Bar') {
-	echo '<pre>Successfully created instance of class Bar.</pre>';
+    echo '<pre>Successfully created instance of class Bar.</pre>';
 }
 
 
@@ -130,12 +130,12 @@ echo '</pre>';
  * Check that we got two different instances
  */
 if ($Bar !== $Bar2) {
-	echo '<pre>Everything seems to works fine. We retrieved two separate instances.</pre>';
+    echo '<pre>Everything seems to works fine. We retrieved two separate instances.</pre>';
 }
 
 ?>
 
 <p>
-	<a href="index.php#Demonstration">Back to index</a>
+    <a href="index.php#Demonstration">Back to index</a>
 </p>
 

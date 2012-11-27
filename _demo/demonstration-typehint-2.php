@@ -9,16 +9,16 @@ require_once '../Lib/Di/Bootstrap.php';
 /**
  * Required classes (files) for typehint demonstration #2
  */
-require_once DI_PATH_LIB.'Collection.php';
-require_once DI_PATH_LIB.'Parser/Typehint.php';
-require_once DI_PATH_LIB.'Parser/Constructor.php';
-require_once DI_PATH_LIB.'Map/Typehint.php';
-require_once DI_PATH_LIB.'Factory.php';
-require_once DI_PATH_LIB.'Container.php';
+require_once DI_PATH_LIB_DI.'Collection.php';
+require_once DI_PATH_LIB_DI.'Parser/Typehint.php';
+require_once DI_PATH_LIB_DI.'Parser/Constructor.php';
+require_once DI_PATH_LIB_DI.'Map/Typehint.php';
+require_once DI_PATH_LIB_DI.'Factory.php';
+require_once DI_PATH_LIB_DI.'Container.php';
 
 
 /**
- * Foo 		        (class with dependencies to Database, Logger) public constructor
+ * Foo              (class with dependencies to Database, Logger) public constructor
  * Bar              (class with dependencies to Database, Logger) private constructor = singleton
  * Database, Logger (dependencies)
  */
@@ -90,7 +90,7 @@ $Foo->test();
  * Check against instance
  */
 if (get_class($Foo) === 'Foo') {
-	echo '<pre>Successfully created instance of class Foo.</pre>';
+    echo '<pre>Successfully created instance of class Foo.</pre>';
 }
 
 
@@ -117,7 +117,7 @@ $Foo2->test();
  * Check against instance
  */
 if (get_class($Foo2) === 'Foo') {
-	echo '<pre>Successfully created instance of class Foo.</pre>';
+    echo '<pre>Successfully created instance of class Foo.</pre>';
 }
 
 
@@ -133,11 +133,11 @@ echo '</pre>';
  * Check that we got two different instances
  */
 if ($Foo !== $Foo2) {
-	echo '<pre>Everything seems to works fine. We retrieved two separate instances.</pre>';
+    echo '<pre>Everything seems to works fine. We retrieved two separate instances.</pre>';
 }
 
 ?>
 
 <p>
-	<a href="index.php#Demonstration">Back to index</a>
+    <a href="index.php#Demonstration">Back to index</a>
 </p>

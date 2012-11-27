@@ -54,10 +54,10 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB.'Parser/Abstract.php';
-require_once DI_PATH_LIB.'Parser/Interface.php';
-require_once DI_PATH_LIB.'Dependency.php';
-require_once DI_PATH_LIB.'Exception.php';
+require_once DI_PATH_LIB_DI.'Parser/Abstract.php';
+require_once DI_PATH_LIB_DI.'Parser/Interface.php';
+require_once DI_PATH_LIB_DI.'Dependency.php';
+require_once DI_PATH_LIB_DI.'Exception.php';
 
 /**
  * Di Typehint Parser
@@ -91,7 +91,7 @@ class Di_Parser_Typehint extends Di_Parser_Abstract implements Di_Parser_Interfa
      * PUBLIC API
      ******************************************************************************************************************/
 
-	/**
+    /**
      * Parses the typehints out of input and return the dependencies based on it as array
      *
      * This method is intend to ...
@@ -105,15 +105,15 @@ class Di_Parser_Typehint extends Di_Parser_Abstract implements Di_Parser_Interfa
      */
     public function parse()
     {
-		// check if all requirements are fulfilled
-		if (!$this->requirementsFulfilled()) {
-			throw new Di_Exception(
-    			'Error parsing constructor. Requirements not fulfilled. Please set input to parse constructor from.'
-    		);
-		}
+        // check if all requirements are fulfilled
+        if (!$this->requirementsFulfilled()) {
+            throw new Di_Exception(
+                'Error parsing constructor. Requirements not fulfilled. Please set input to parse constructor from.'
+            );
+        }
 
-    	// prepare input for parser
-    	$this->prepareInput();
+        // prepare input for parser
+        $this->prepareInput();
 
         // if called from outside we maybe need a new instance of reflection
         if (!class_exists($this->input['class']) && !$this->input['reflection']) {
@@ -130,17 +130,17 @@ class Di_Parser_Typehint extends Di_Parser_Abstract implements Di_Parser_Interfa
 
         // get filename of class
         if (!isset($this->input['file'])) {
-        	$this->input['file'] = $reflectionClass->getFileName();
+            $this->input['file'] = $reflectionClass->getFileName();
         }
 
         // read the file as array
         $sourcecode = file($this->input['file']);
 
-		// return the result
+        // return the result
         return $this->_parseTypehints($reflectionClass, $sourcecode);
     }
 
-	/**
+    /**
      * Parses the typehints out of input and return the dependencies based on it as array
      *
      * This method is intend to parse the typehints for the given reflection instance and the sourcecode.
@@ -176,38 +176,38 @@ class Di_Parser_Typehint extends Di_Parser_Abstract implements Di_Parser_Interfa
 
         // iterate over all found candidates and check for Typehints
         foreach ($reflectionMethods as $reflectionMethod) {
-        	/* @var $reflectionMethod ReflectionMethod */
+            /* @var $reflectionMethod ReflectionMethod */
 
-			// extract signature from source
-			$signature = trim($sourcecode[$reflectionMethod->getStartLine()-1]);
+            // extract signature from source
+            $signature = trim($sourcecode[$reflectionMethod->getStartLine()-1]);
 
-			// extract arguments from signature
-			$signature = $this->_signatureToArray($reflectionMethod->getName(), $signature);
+            // extract arguments from signature
+            $signature = $this->_signatureToArray($reflectionMethod->getName(), $signature);
 
-			// now check the result for typehints
-			foreach ($signature as $method => $arguments) {
+            // now check the result for typehints
+            foreach ($signature as $method => $arguments) {
 
-				$result2 = array();
+                $result2 = array();
 
-				foreach ($arguments as $position => $argument) {
-					// get default dependencies (skeleton)
-                	$tmp = $this->getDefaultSekeleton();
+                foreach ($arguments as $position => $argument) {
+                    // get default dependencies (skeleton)
+                    $tmp = $this->getDefaultSekeleton();
 
-                	// fill with real data
-					$tmp['class']      = $argument[0];
-					$tmp['identifier'] = str_replace('$', '', $argument[1]);
-					$tmp['type']       = ($constructor == $method) ?
-						Di_Dependency::TYPE_CONSTRUCTOR :
-						Di_Dependency::TYPE_METHOD;
-					$tmp['position']   = $position;
-					$tmp['value']      = $method;
+                    // fill with real data
+                    $tmp['class']      = $argument[0];
+                    $tmp['identifier'] = str_replace('$', '', $argument[1]);
+                    $tmp['type']       = ($constructor == $method) ?
+                        Di_Dependency::TYPE_CONSTRUCTOR :
+                        Di_Dependency::TYPE_METHOD;
+                    $tmp['position']   = $position;
+                    $tmp['value']      = $method;
 
-					// store indexed by method
-					$result2[] = $tmp;
-				}
+                    // store indexed by method
+                    $result2[] = $tmp;
+                }
 
-				(count($result2)>0) ? $result[$method] = $result2 : '';
-			}
+                (count($result2)>0) ? $result[$method] = $result2 : '';
+            }
         }
 
         // return the result
@@ -228,14 +228,14 @@ class Di_Parser_Typehint extends Di_Parser_Abstract implements Di_Parser_Interfa
      */
     public function requirementsFulfilled()
     {
-    	return ($this->input !== null);
+        return ($this->input !== null);
     }
 
     /*******************************************************************************************************************
      * PRIVATE + PROTECTED
      ******************************************************************************************************************/
 
-	/**
+    /**
      * Parses a given signature of a method for arguments and returns result as array
      *
      * This method is intend to parse a given signature of a method for arguments and returns result as array.
@@ -252,8 +252,8 @@ class Di_Parser_Typehint extends Di_Parser_Abstract implements Di_Parser_Interfa
      */
     private function _signatureToArray($method, $signature, $cleanup = true)
     {
-    	// get begin and end of arguments
-		$begin = strpos($signature,  '(')+1;
+        // get begin and end of arguments
+        $begin = strpos($signature,  '(')+1;
         $end   = strrpos($signature, ')');
 
         // extract the list of aringuments
@@ -272,16 +272,16 @@ class Di_Parser_Typehint extends Di_Parser_Abstract implements Di_Parser_Interfa
             $argument = trim($argument);
 
             if ($cleanup === true) {
-            	// take it only if typehint exist and if this is not "array"
-    	        if (stristr($argument, ' ') !== false && strtolower(substr($argument, 0, 5)) != 'array') {
-        	        $argument = explode(' ', $argument);
-        	        //array_push($result, $argument);
-        	        $result[$i] = $argument;
-    	        }
+                // take it only if typehint exist and if this is not "array"
+                if (stristr($argument, ' ') !== false && strtolower(substr($argument, 0, 5)) != 'array') {
+                    $argument = explode(' ', $argument);
+                    //array_push($result, $argument);
+                    $result[$i] = $argument;
+                }
 
             } else {
-            	//array_push($result, $argument);
-            	$result[$i] = $argument;
+                //array_push($result, $argument);
+                $result[$i] = $argument;
 
             }
 

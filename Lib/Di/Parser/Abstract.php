@@ -54,7 +54,7 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB.'Exception.php';
+require_once DI_PATH_LIB_DI.'Exception.php';
 
 /**
  * Di Parser Abstract
@@ -115,36 +115,36 @@ abstract class Di_Parser_Abstract
      */
     protected function prepareInput()
     {
-    	$input = array(
-    		'class'      => null,
-    		'reflection' => null
-		);
+        $input = array(
+            'class'      => null,
+            'reflection' => null
+        );
 
-    	if (is_string($this->input)) {
-			$input['class'] = $this->input;
+        if (is_string($this->input)) {
+            $input['class'] = $this->input;
 
-    	} else {
-			extract($this->input);
+        } else {
+            extract($this->input);
 
-			if (!isset($class)) {
-				throw new Di_Exception(
-					'Error preparing input. No class to parse defined!'
-				);
-			}
+            if (!isset($class)) {
+                throw new Di_Exception(
+                    'Error preparing input. No class to parse defined!'
+                );
+            }
 
-			$input['class'] = $class;
+            $input['class'] = $class;
 
-			if (isset($file)) {
-				$this->loadFile($file);
-				$input['file'] = $file;
-			}
+            if (isset($file)) {
+                $this->loadFile($file);
+                $input['file'] = $file;
+            }
 
- 			if (isset($reflection)) {
-				$input['reflection'] = $reflection;
-			}
-    	}
+            if (isset($reflection)) {
+                $input['reflection'] = $reflection;
+            }
+        }
 
-		$this->input = $input;
+        $this->input = $input;
     }
 
     /**
@@ -186,20 +186,20 @@ abstract class Di_Parser_Abstract
     protected function getDefaultSekeleton()
     {
         return array(
-        	'class'      => null,
+            'class'      => null,
             'identifier' => null,
-        	'instance'   => null,
+            'instance'   => null,
             'type'       => null,
-            'value'	     => null,
+            'value'      => null,
             'position'   => 1
         );
     }
 
-	/**
-	 * Returns all variables from global scope
-	 *
-	 * This method is intend to return all variables from PHP's global scope.
-	 *
+    /**
+     * Returns all variables from global scope
+     *
+     * This method is intend to return all variables from PHP's global scope.
+     *
      * @return  array The defined variables from global scope
      * @access  protected
      * @author  Benjamin Carl <opensource@clickalicious.de>
@@ -208,9 +208,9 @@ abstract class Di_Parser_Abstract
      */
     protected function retrieveGlobals()
     {
-		// retrieve globals and return them
-		global $GLOBALS;
-		return $GLOBALS;
+        // retrieve globals and return them
+        global $GLOBALS;
+        return $GLOBALS;
     }
 
     /*******************************************************************************************************************

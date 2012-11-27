@@ -54,7 +54,7 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB.'Exception.php';
+require_once DI_PATH_LIB_DI.'Exception.php';
 
 /**
  * Di Map
@@ -89,39 +89,39 @@ class Di_Map
      */
     protected $collection;
 
-	/**
-	 * A Di_Dependency instance to clone objects from
-	 *
-	 * @var Di_Dependency
-	 * @access protected
-	 */
-	protected $dependency;
+    /**
+     * A Di_Dependency instance to clone objects from
+     *
+     * @var Di_Dependency
+     * @access protected
+     */
+    protected $dependency;
 
-	/**
-	 * A * parser instance
-	 *
-	 * @var Di_Parser_*
-	 * @access protected
-	 */
-	protected $parser;
+    /**
+     * A * parser instance
+     *
+     * @var Di_Parser_*
+     * @access protected
+     */
+    protected $parser;
 
-	/**
-	 * Available wire modes
-	 * WIRE_MODE_MANUAL    = Wiring is done manually by you
-	 * WIRE_MODE_AUTOMATIC = Wiring is done automatically
-	 *
-	 * @var integer
-	 * @access public
-	 */
+    /**
+     * Available wire modes
+     * WIRE_MODE_MANUAL    = Wiring is done manually by you
+     * WIRE_MODE_AUTOMATIC = Wiring is done automatically
+     *
+     * @var integer
+     * @access public
+     */
     const WIRE_MODE_MANUAL    = 1;
     const WIRE_MODE_AUTOMATIC = 2;
 
-	/**
-	 * Default namespace
-	 *
-	 * @var string
-	 * @access public
-	 */
+    /**
+     * Default namespace
+     *
+     * @var string
+     * @access public
+     */
     const DEFAULT_NAMESPACE   = 'Di';
 
     /*******************************************************************************************************************
@@ -142,10 +142,10 @@ class Di_Map
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	public function setCollection(Di_Collection $collection)
-	{
-		$this->collection = $collection;
-	}
+    public function setCollection(Di_Collection $collection)
+    {
+        $this->collection = $collection;
+    }
 
     /**
      * Returns the collection of the map instance
@@ -159,10 +159,10 @@ class Di_Map
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	public function getCollection()
-	{
-		return $this->collection;
-	}
+    public function getCollection()
+    {
+        return $this->collection;
+    }
 
     /**
      * Sets the identifier of the map instance
@@ -232,15 +232,15 @@ class Di_Map
         return $this->collection;
     }
 
-	/**
-	 * Wires existing instances of classes
-	 *
-	 * This method is intend to connect existing instances from argument $matrix or retrieved from globals
-	 * with the existing map. This connection is identified by the "id" in the map and the "key" in the
-	 * array.
-	 *
-	 * @param integer $mode   This can be either WIRE_MODE_MANUAL or WIRE_MODE_AUTOMATIC
-	 * @param array   $matrix A matrix defining the relation between an Id and an Instance as key => value pair
+    /**
+     * Wires existing instances of classes
+     *
+     * This method is intend to connect existing instances from argument $matrix or retrieved from globals
+     * with the existing map. This connection is identified by the "id" in the map and the "key" in the
+     * array.
+     *
+     * @param integer $mode   This can be either WIRE_MODE_MANUAL or WIRE_MODE_AUTOMATIC
+     * @param array   $matrix A matrix defining the relation between an Id and an Instance as key => value pair
      *
      * @return  boolean TRUE on success, otherwise FALSE
      * @access  public
@@ -251,28 +251,28 @@ class Di_Map
      */
     public function wire($mode = self::WIRE_MODE_AUTOMATIC, array $matrix = array())
     {
-		if ($mode === self::WIRE_MODE_AUTOMATIC) {
-			$matrix = $this->_retrieveGlobals();
-		}
+        if ($mode === self::WIRE_MODE_AUTOMATIC) {
+            $matrix = $this->_retrieveGlobals();
+        }
 
-		if (empty($matrix)) {
-			throw new Di_Exception(
-				'Error while wiring instances! Mode manual requires an array containing key => value pairs.'
-			);
-		}
+        if (empty($matrix)) {
+            throw new Di_Exception(
+                'Error while wiring instances! Mode manual requires an array containing key => value pairs.'
+            );
+        }
 
-		// now we connect our map-setup with existing (real) instances
-		$this->_wireClassWithDependencies($matrix);
+        // now we connect our map-setup with existing (real) instances
+        $this->_wireClassWithDependencies($matrix);
 
-		// success
-		return true;
+        // success
+        return true;
     }
 
-	/**
-	 * Resets the state of this class
-	 *
-	 * This method is intend to reset the state of this class. Currently only used for unit-testing.
-	 *
+    /**
+     * Resets the state of this class
+     *
+     * This method is intend to reset the state of this class. Currently only used for unit-testing.
+     *
      * @return  void
      * @access  public
      * @author  Benjamin Carl <opensource@clickalicious.de>
@@ -281,50 +281,50 @@ class Di_Map
      */
     public function reset()
     {
-    	$this->collection = null;
+        $this->collection = null;
     }
 
     /*******************************************************************************************************************
      * PROTECTED
      ******************************************************************************************************************/
 
-	/**
-	 * Adds the given raw dependencies (array) to the collection for given classname
-	 *
-	 * This method is intend to add the given raw dependencies (array) to the collection for given classname.
-	 *
-	 * @param string $classname       The name of the class the dependencies belong to
-	 * @param array  $rawDependencies The dependencies as raw array
-	 *
+    /**
+     * Adds the given raw dependencies (array) to the collection for given classname
+     *
+     * This method is intend to add the given raw dependencies (array) to the collection for given classname.
+     *
+     * @param string $classname       The name of the class the dependencies belong to
+     * @param array  $rawDependencies The dependencies as raw array
+     *
      * @return  void
      * @access  protected
      * @author  Benjamin Carl <opensource@clickalicious.de>
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	protected function addRawDependenciesToCollection($classname, array $rawDependencies)
-	{
-		// iterate raw dependencies, convert to Di_Dependency and add it to Di_Collection
-		foreach ($rawDependencies as $identifier => $dependencies) {
+    protected function addRawDependenciesToCollection($classname, array $rawDependencies)
+    {
+        // iterate raw dependencies, convert to Di_Dependency and add it to Di_Collection
+        foreach ($rawDependencies as $identifier => $dependencies) {
 
-		    foreach ($dependencies as $setup) {
-				if ($setup['type'] === 'constructor' && $identifier !== '__construct') {
-					$this->getCollection()->setConstructor($classname, $identifier);
-				}
+            foreach ($dependencies as $setup) {
+                if ($setup['type'] === 'constructor' && $identifier !== '__construct') {
+                    $this->getCollection()->setConstructor($classname, $identifier);
+                }
 
                 // tricky clone base dependency object so we don't need a new operator here
-				$dependency = clone $this->dependency;
+                $dependency = clone $this->dependency;
 
-				$dependency->setClassname($setup['class']);
-				$dependency->setIdentifier($setup['identifier']);
-				$dependency->setConfiguration(
-					array('type' => $setup['type'], 'value' => $setup['value'], 'position' => $setup['position'])
-				);
+                $dependency->setClassname($setup['class']);
+                $dependency->setIdentifier($setup['identifier']);
+                $dependency->setConfiguration(
+                    array('type' => $setup['type'], 'value' => $setup['value'], 'position' => $setup['position'])
+                );
 
-				$this->getCollection()->addDependency($classname, $dependency);
-			}
-		}
-	}
+                $this->getCollection()->addDependency($classname, $dependency);
+            }
+        }
+    }
 
     /*******************************************************************************************************************
      * PRIVATE
@@ -358,7 +358,7 @@ class Di_Map
                 // if dependency is set to NULL set dependency retrieved from given matrix
                 if ($dependency->getInstance() === null) {
 
-                	// some basic failure prevention
+                    // some basic failure prevention
                     if (!isset($matrix[$dependency->getIdentifier()])) {
                         throw new Di_Exception(
                             'Error while wiring instance from map with dependency. Instance with identifier: '.
@@ -377,11 +377,11 @@ class Di_Map
         return true;
     }
 
-	/**
-	 * Returns all variables from global scope
-	 *
-	 * This method is intend to return all variables from PHP's global scope.
-	 *
+    /**
+     * Returns all variables from global scope
+     *
+     * This method is intend to return all variables from PHP's global scope.
+     *
      * @return  array The defined variables from global scope
      * @access  private
      * @author  Benjamin Carl <opensource@clickalicious.de>
@@ -390,9 +390,9 @@ class Di_Map
      */
     private function _retrieveGlobals()
     {
-		// retrieve globals and return them
-		global $GLOBALS;
-		return $GLOBALS;
+        // retrieve globals and return them
+        global $GLOBALS;
+        return $GLOBALS;
     }
 }
 

@@ -54,11 +54,11 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB.'Map.php';
-require_once DI_PATH_LIB.'Factory.php';
-require_once DI_PATH_LIB.'Container.php';
-require_once DI_PATH_LIB.'Dependency.php';
-require_once DI_PATH_LIB.'Collection.php';
+require_once DI_PATH_LIB_DI.'Map.php';
+require_once DI_PATH_LIB_DI.'Factory.php';
+require_once DI_PATH_LIB_DI.'Container.php';
+require_once DI_PATH_LIB_DI.'Dependency.php';
+require_once DI_PATH_LIB_DI.'Collection.php';
 
 /**
  * Di Map Fluent
@@ -77,37 +77,37 @@ require_once DI_PATH_LIB.'Collection.php';
  */
 class Di_Map_Fluent extends Di_Map
 {
-	/**
-	 * The current active classname to add dependencies for
-	 *
-	 * @var string
-	 * @access private
-	 */
-	private $_classname;
+    /**
+     * The current active classname to add dependencies for
+     *
+     * @var string
+     * @access private
+     */
+    private $_classname;
 
-	/**
-	 * The last active classname
-	 *
-	 * @var string
-	 * @access private
-	 */
-	private $_lastClassname;
+    /**
+     * The last active classname
+     *
+     * @var string
+     * @access private
+     */
+    private $_lastClassname;
 
-	/**
-	 * The base dependency object
-	 *
-	 * @var Di_Dependency
-	 * @access private
-	 */
-	private $_dependency;
+    /**
+     * The base dependency object
+     *
+     * @var Di_Dependency
+     * @access private
+     */
+    private $_dependency;
 
-	/**
-	 * The current active dependency
-	 *
-	 * @var Di_Dependency
-	 * @access private
-	 */
-	private $_current;
+    /**
+     * The current active dependency
+     *
+     * @var Di_Dependency
+     * @access private
+     */
+    private $_current;
 
 
     /*******************************************************************************************************************
@@ -131,8 +131,8 @@ class Di_Map_Fluent extends Di_Map
     public function __construct(Di_Collection $collection, Di_Dependency $dependency)
     {
         // store instances
-		$this->collection  = $collection;
-		$this->_dependency = $dependency;
+        $this->collection  = $collection;
+        $this->_dependency = $dependency;
     }
 
     /*******************************************************************************************************************
@@ -151,12 +151,12 @@ class Di_Map_Fluent extends Di_Map
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	public function generate()
-	{
-		// empty container method to keep the interface consistent with
-		// Di_Map_Static and Di_Map_Annotation
-		return $this;
-	}
+    public function generate()
+    {
+        // empty container method to keep the interface consistent with
+        // Di_Map_Static and Di_Map_Annotation
+        return $this;
+    }
 
     /**
      * Setter for the name of the class which has dependencies
@@ -173,27 +173,27 @@ class Di_Map_Fluent extends Di_Map
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	public function classname($classname, $arguments = null, $constructor = null)
-	{
-		// flush maybe exisiting content
-		$this->_flush();
+    public function classname($classname, $arguments = null, $constructor = null)
+    {
+        // flush maybe exisiting content
+        $this->_flush();
 
-		// store classname
-		$this->_classname = $classname;
+        // store classname
+        $this->_classname = $classname;
 
-		// add arguments if given
-		if (!is_null($arguments) && is_array($arguments)) {
-			$this->collection->addArguments($classname, $arguments);
-		}
+        // add arguments if given
+        if (!is_null($arguments) && is_array($arguments)) {
+            $this->collection->addArguments($classname, $arguments);
+        }
 
-		// add constructor if given
-		if (!is_null($constructor)) {
-			$this->collection->setConstructor($classname, $constructor);
-		}
+        // add constructor if given
+        if (!is_null($constructor)) {
+            $this->collection->setConstructor($classname, $constructor);
+        }
 
-		// fluent interface
-		return $this;
-	}
+        // fluent interface
+        return $this;
+    }
 
     /**
      * Setter for the name of the dependency class
@@ -208,43 +208,21 @@ class Di_Map_Fluent extends Di_Map
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	public function dependsOn($classname)
-	{
-		// store last created temporary dependency
-		if ($this->_current) {
-			$this->_flush();
-		}
+    public function dependsOn($classname)
+    {
+        // store last created temporary dependency
+        if ($this->_current) {
+            $this->_flush();
+        }
 
-		/* @var $this->_current Di_Dependency */
-		$this->_current = clone $this->_dependency;
+        /* @var $this->_current Di_Dependency */
+        $this->_current = clone $this->_dependency;
 
-		$this->_current->setClassname($classname);
+        $this->_current->setClassname($classname);
 
-		// fluent interface
-		return $this;
-	}
-
-    /**
-     * Setter for the identifier of the dependency class
-     *
-     * This method is intend to set the identifier of the dependency class.
-     *
-     * @param string $identifier The identifier of the dependency class
-     *
-     * @return  Di_Map_Fluent Instance of this class (for method chaining)
-     * @access  public
-     * @author  Benjamin Carl <opensource@clickalicious.de>
-     * @since   Method available since Release 1.0.0
-     * @version 1.0
-     */
-	public function identifier($identifier)
-	{
-		/* @var $this->_current Di_Dependency */
-		$this->_current->setIdentifier($identifier);
-
-		// fluent interface
-		return $this;
-	}
+        // fluent interface
+        return $this;
+    }
 
     /**
      * Setter for the identifier of the dependency class
@@ -259,10 +237,32 @@ class Di_Map_Fluent extends Di_Map
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	public function id($identifier)
-	{
-		return $this->identifier($identifier);
-	}
+    public function identifier($identifier)
+    {
+        /* @var $this->_current Di_Dependency */
+        $this->_current->setIdentifier($identifier);
+
+        // fluent interface
+        return $this;
+    }
+
+    /**
+     * Setter for the identifier of the dependency class
+     *
+     * This method is intend to set the identifier of the dependency class.
+     *
+     * @param string $identifier The identifier of the dependency class
+     *
+     * @return  Di_Map_Fluent Instance of this class (for method chaining)
+     * @access  public
+     * @author  Benjamin Carl <opensource@clickalicious.de>
+     * @since   Method available since Release 1.0.0
+     * @version 1.0
+     */
+    public function id($identifier)
+    {
+        return $this->identifier($identifier);
+    }
 
     /**
      * Setter for the instance of the dependency class
@@ -277,14 +277,14 @@ class Di_Map_Fluent extends Di_Map
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	public function instance($instance)
-	{
-		/* @var $this->_current Di_Dependency */
-		$this->_current->setInstance($instance);
+    public function instance($instance)
+    {
+        /* @var $this->_current Di_Dependency */
+        $this->_current->setInstance($instance);
 
-		// fluent interface
-		return $this;
-	}
+        // fluent interface
+        return $this;
+    }
 
     /**
      * Setter for the configuration of the dependency class
@@ -299,14 +299,14 @@ class Di_Map_Fluent extends Di_Map
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	public function configuration(array $configuration)
-	{
-		/* @var $this->_current Di_Dependency */
-		$this->_current->setConfiguration($configuration);
+    public function configuration(array $configuration)
+    {
+        /* @var $this->_current Di_Dependency */
+        $this->_current->setConfiguration($configuration);
 
-		// fluent interface
-		return $this;
-	}
+        // fluent interface
+        return $this;
+    }
 
     /**
      * Setter for the arguments of the dependency class
@@ -321,22 +321,22 @@ class Di_Map_Fluent extends Di_Map
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	public function arguments(array $arguments)
-	{
-		/* @var $this->_current Di_Dependency */
-		$this->_current->setArguments($arguments);
+    public function arguments(array $arguments)
+    {
+        /* @var $this->_current Di_Dependency */
+        $this->_current->setArguments($arguments);
 
-		// fluent interface
-		return $this;
-	}
+        // fluent interface
+        return $this;
+    }
 
-	/**
-	 * Stores the name of the last processed class
-	 *
-	 * This method is required for the fluent interface.
-	 *
-	 * @param string $classname The name of the last processed class
-	 *
+    /**
+     * Stores the name of the last processed class
+     *
+     * This method is required for the fluent interface.
+     *
+     * @param string $classname The name of the last processed class
+     *
      * @return  void
      * @access  public
      * @author  Benjamin Carl <opensource@clickalicious.de>
@@ -380,13 +380,13 @@ class Di_Map_Fluent extends Di_Map
      */
     public function wire($mode = self::WIRE_MODE_AUTOMATIC, array $matrix = array())
     {
-    	// flush maybe existing temporary content
-		$this->_flush();
+        // flush maybe existing temporary content
+        $this->_flush();
 
-		parent::wire($mode, $matrix);
+        parent::wire($mode, $matrix);
 
-		// fluent interface
-		return $this;
+        // fluent interface
+        return $this;
     }
 
     /**
@@ -402,22 +402,22 @@ class Di_Map_Fluent extends Di_Map
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	public function store($returnContainer = true)
-	{
-		// reset state
-		$this->_reset();
+    public function store($returnContainer = true)
+    {
+        // reset state
+        $this->_reset();
 
-		// store this map to container
-		$this->container->setMap($this);
+        // store this map to container
+        $this->container->setMap($this);
 
-		if ($returnContainer === true) {
-			return $this->container;
+        if ($returnContainer === true) {
+            return $this->container;
 
-		} else {
-			// fluent interface
-			return $this;
-		}
-	}
+        } else {
+            // fluent interface
+            return $this;
+        }
+    }
 
     /**
      * Shortcut for build()
@@ -434,16 +434,16 @@ class Di_Map_Fluent extends Di_Map
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	public function build($arguments = null, $classname = null, $wire = true)
-	{
-		$classname = ($classname) ? $classname : $this->_classname;
+    public function build($arguments = null, $classname = null, $wire = true)
+    {
+        $classname = ($classname) ? $classname : $this->_classname;
 
-		if ($wire) {
-		    $this->wire(Di_Map::WIRE_MODE_AUTOMATIC);
-		}
+        if ($wire) {
+            $this->wire(Di_Map::WIRE_MODE_AUTOMATIC);
+        }
 
-		return $this->store()->build($classname, $arguments);
-	}
+        return $this->store()->build($classname, $arguments);
+    }
 
 
     /*******************************************************************************************************************
@@ -461,11 +461,11 @@ class Di_Map_Fluent extends Di_Map
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	private function _reset()
-	{
-		$this->_classname = null;
-		$this->_dependency = null;
-	}
+    private function _reset()
+    {
+        $this->_classname = null;
+        $this->_dependency = null;
+    }
 
     /**
      * Flushes the content
@@ -478,16 +478,16 @@ class Di_Map_Fluent extends Di_Map
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	private function _flush()
-	{
-		$this->_lastClassname = $this->_classname;
+    private function _flush()
+    {
+        $this->_lastClassname = $this->_classname;
 
-		if ($this->_current !== null) {
-			$this->collection->addDependency($this->_classname, $this->_current);
-		}
+        if ($this->_current !== null) {
+            $this->collection->addDependency($this->_classname, $this->_current);
+        }
 
-		$this->_current = null;
-	}
+        $this->_current = null;
+    }
 }
 
 ?>

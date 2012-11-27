@@ -54,7 +54,7 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB.'Map.php';
+require_once DI_PATH_LIB_DI.'Map.php';
 
 /**
  * Di Map Static
@@ -73,12 +73,12 @@ require_once DI_PATH_LIB.'Map.php';
  */
 class Di_Map_Static extends Di_Map
 {
-	/**
-	 * An instance of Di_Importer_*
-	 *
-	 * @var Di_Importer_*
-	 * @access protected
-	 */
+    /**
+     * An instance of Di_Importer_*
+     *
+     * @var Di_Importer_*
+     * @access protected
+     */
     protected $importer;
 
 
@@ -92,7 +92,7 @@ class Di_Map_Static extends Di_Map
      * Constructor of this class
      *
      * @param Di_Collection    $collection An instance of Di_Collection to collect dependencies in
-	 * @param Di_Importer_Json $importer   An instance of Di_Importer_Json to import dependencies with
+     * @param Di_Importer_Json $importer   An instance of Di_Importer_Json to import dependencies with
      *
      * @return  void
      * @access  public
@@ -126,14 +126,14 @@ class Di_Map_Static extends Di_Map
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	public function generate($filename)
-	{
-		// set input
-		$this->importer->setInput($filename);
+    public function generate($filename)
+    {
+        // set input
+        $this->importer->setInput($filename);
 
         // do the import
-		$this->importer->import();
-	}
+        $this->importer->import();
+    }
 }
 
 ?>

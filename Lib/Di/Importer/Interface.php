@@ -85,7 +85,7 @@ interface Di_Importer_Interface
      */
     public function export();
 
-	/**
+    /**
      * Contract for setCollection
      *
      * @param Di_Collection $collection The collection to set as an Di_Collection object
@@ -94,14 +94,14 @@ interface Di_Importer_Interface
      */
     public function setCollection(Di_Collection $collection);
 
-	/**
+    /**
      * Contract for getCollection
      *
      * @return Di_Collection The collection of dependencies in an Di_Collection object
      */
     public function getCollection();
 
-	/**
+    /**
      * Contract for setInput
      *
      * @param mixed $input The input to set
@@ -110,7 +110,7 @@ interface Di_Importer_Interface
      */
     public function setInput($input);
 
-	/**
+    /**
      * Contract for getInput
      *
      * @return mixed The input set, otherwise NULL

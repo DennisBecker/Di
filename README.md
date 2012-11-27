@@ -21,7 +21,7 @@ Features
   * ***Di*** does not need any special PHP-extension
 
 * Fully documented
-  * Every part in ***Di*** is covered by a comment and/or an detailed howto
+  * Every part in ***Di*** is covered by a comment and/or a detailed howto
 
 * Unit-Tested
   * ***Di*** ist well tested and used in production environment
@@ -55,7 +55,7 @@ The dependency injection process is separated into three main parts. These parts
 
 **box 1**
 
-    $Foo = $container->build('foo');
+    $Foo = $container->build('Foo');
 
 
 
@@ -88,20 +88,24 @@ Demonstration
 You will find detailed demonstrations (and the corresponding sourcecode) in the folder ***./_demo/***. This should give you a good overview of what is possible with ***Di*** and what is (currently) not. The demonstrations cover the following topics:
 
 * How to inject dependencies using a ...
- * ***static*** *dependency map* (JSON format) and manually wiring
- * ***static*** *dependency map* (JSON format) and automatic wiring (magic)
- * ***static*** *dependency map* (JSON format) and a class with singleton pattern
- * ***dynamic*** *dependency map* (fluent Interface) and manually wiring
- * ***dynamic*** *dependency map* (fluent Interface) and automatic wiring (magic)
- * ***dynamic*** *dependency map* (fluent Interface) and a class with singleton pattern
- * ***annotation*** dependency map (annotations inline) and manually wiring
- * ***annotation*** dependency map (annotations inline) and automatic wiring (magic)
- * ***annotation*** dependency map (annotations inline) and a class with singleton pattern
- * ***typehint*** dependency map (plain vanilla PHP) and manually wiring
- * ***typehint*** dependency map (plain vanilla PHP) and automatic wiring (magic)
- * ***typehint*** dependency map (plain vanilla PHP) and a class with singleton pattern 
+ * static dependency map (JSON format) and manually wiring
+ * static dependency map (JSON format) and automagic wiring
+ * static dependency map (JSON format) and a class with singleton pattern
+ * static dependency map (JSON format) and using frozen objects so we don't need to wire
+ * static dependency map (JSON format) Export an existing Di_Collection (from any Di_Map instance) to a static map and freeze instances
+ * dynamic dependency map (fluent Interface) and manually wiring
+ * dynamic dependency map (fluent Interface) and automagic wiring
+ * dynamic dependency map (fluent Interface) and a class with singleton pattern
+ * dynamic dependency map (fluent Interface), automagic wiring and export to static dependency map (JSON format)
+ * annotation dependency map (annotations inline) and manually wiring
+ * annotation dependency map (annotations inline) and automagic wiring
+ * annotation dependency map (annotations inline) and a class with singleton pattern
+ * typehint dependency map (plain vanilla PHP) and manually wiring
+ * typehint dependency map (plain vanilla PHP) and automagic wiring
+ * typehint dependency map (plain vanilla PHP) and a class with singleton pattern
 
-    
+
+   
 API Documentation
 -------------------------
 The sourcecode is fully documented and you will find the documentation in the folder ***./_doc/html/***.
@@ -111,9 +115,7 @@ Roadmap
 -------------------------
 This is the current roadmap of new features:
 
-* Map-builder which takes a Di_Collection as input and creates (build/write) a static dependency map (e.g. in JSON-Format) of it
-
-* Storing of required dependencies within the static dependency map (PHP Object Freezer https://github.com/sebastianbergmann/php-object-freezer)
+* Replace ReflectionClass/Method calls with custom regular expression based parser/analyzer
 
 * Increasing code-coverage of the Unit-Tests from approximately 79% up to ~100% ;)
 

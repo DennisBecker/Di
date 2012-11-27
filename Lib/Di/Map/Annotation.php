@@ -54,7 +54,7 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB.'Map.php';
+require_once DI_PATH_LIB_DI.'Map.php';
 
 /**
  * Di Map Annotation
@@ -83,8 +83,8 @@ class Di_Map_Annotation extends Di_Map
      * Constructor of this class
      *
      * @param Di_Collection        $collection An instance of Di_Collection to collect dependencies in
-	 * @param Di_Parser_Annotation $parser     An instance of Di_Parser_Annotation to parse dependencies with
-	 * @param Di_Dependency        $dependency An instance of Di_Dependency base object for cloning dependencies from
+     * @param Di_Parser_Annotation $parser     An instance of Di_Parser_Annotation to parse dependencies with
+     * @param Di_Dependency        $dependency An instance of Di_Dependency base object for cloning dependencies from
      *
      * @return  void
      * @access  public
@@ -117,19 +117,19 @@ class Di_Map_Annotation extends Di_Map
      * @since   Method available since Release 1.0.0
      * @version 1.0
      */
-	public function generate($classname)
-	{
-		// set input
-		$this->parser->setInput(
-			array('class' => $classname)
-		);
+    public function generate($classname)
+    {
+        // set input
+        $this->parser->setInput(
+            array('class' => $classname)
+        );
 
-		// get raw dependencies
-		$rawDependencies = $this->parser->parse();
+        // get raw dependencies
+        $rawDependencies = $this->parser->parse();
 
-		// add these dependencies to collection
-		$this->addRawDependenciesToCollection($classname, $rawDependencies);
-	}
+        // add these dependencies to collection
+        $this->addRawDependenciesToCollection($classname, $rawDependencies);
+    }
 }
 
 ?>

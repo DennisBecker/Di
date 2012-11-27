@@ -54,10 +54,10 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB.'Map.php';
-require_once DI_PATH_LIB.'Dependency.php';
-require_once DI_PATH_LIB.'Factory.php';
-require_once DI_PATH_LIB.'Exception.php';
+require_once DI_PATH_LIB_DI.'Map.php';
+require_once DI_PATH_LIB_DI.'Dependency.php';
+require_once DI_PATH_LIB_DI.'Factory.php';
+require_once DI_PATH_LIB_DI.'Exception.php';
 
 /**
  * Di Container
@@ -110,31 +110,31 @@ class Di_Container
      */
     static private $_dependencyMaps = array();
 
-	/**
-	 * Instance of Di_Factory for creating instances
-	 *
-	 * @var Di_Factory
-	 * @access private
-	 */
-	private $_factory;
+    /**
+     * Instance of Di_Factory for creating instances
+     *
+     * @var Di_Factory
+     * @access private
+     */
+    private $_factory;
 
-	/**
-	 * Default namespace
-	 *
-	 * @var string
-	 * @access public
-	 */
+    /**
+     * Default namespace
+     *
+     * @var string
+     * @access public
+     */
     const DEFAULT_NAMESPACE   = 'Di';
 
-	/**
-	 * The mode used to handle maps
-	 * This can be either
-	 * STATIC  = Used for static
-	 * DYNAMIC = Used for dynamic creation of instances
-	 *
-	 * @var integer
-	 * @access public
-	 */
+    /**
+     * The mode used to handle maps
+     * This can be either
+     * STATIC  = Used for static
+     * DYNAMIC = Used for dynamic creation of instances
+     *
+     * @var integer
+     * @access public
+     */
     const MODE_STATIC  = 1;
     const MODE_DYNAMIC = 2;
 
@@ -160,12 +160,12 @@ class Di_Container
     public function setMap(Di_Map $map, $override = true)
     {
         if ($override === false) {
-	        $existingMap = $this->getMap();
+            $existingMap = $this->getMap();
 
-	        if ($existingMap) {
-	            $map = $this->_mergeMaps($existingMap, $map);
-	        }
-    	}
+            if ($existingMap) {
+                $map = $this->_mergeMaps($existingMap, $map);
+            }
+        }
 
         // store
         self::$_dependencyMaps[$this->_namespace] = $map;
@@ -189,8 +189,8 @@ class Di_Container
     public function getMap()
     {
         return (isset(self::$_dependencyMaps[$this->_namespace]))
-        	? self::$_dependencyMaps[$this->_namespace]
-        	: null;
+            ? self::$_dependencyMaps[$this->_namespace]
+            : null;
     }
 
     /**
@@ -252,7 +252,7 @@ class Di_Container
      */
     public function setFactory(Di_Factory $factory)
     {
-		$this->_factory = $factory;
+        $this->_factory = $factory;
     }
 
     /**
@@ -268,7 +268,7 @@ class Di_Container
      */
     public function getFactory()
     {
-		return $this->_factory;
+        return $this->_factory;
     }
 
     /**
@@ -289,35 +289,35 @@ class Di_Container
      */
     public function build($classname, $arguments = null)
     {
-    	// check if all required dependencies are set [Di_Factory, Di_Map, ...]
-		if (!$this->requirementsFulfilled()) {
-			throw new Di_Exception(
-				'Error building an instance. Requirements not fulfilled. Provide all required dependencies.'
-			);
-		}
+        // check if all required dependencies are set [Di_Factory, Di_Map, ...]
+        if (!$this->requirementsFulfilled()) {
+            throw new Di_Exception(
+                'Error building an instance. Requirements not fulfilled. Provide all required dependencies.'
+            );
+        }
 
-		// get setup for static || dynamic
-		if ($this->_mode === self::MODE_DYNAMIC) {
-    	    $setup = $this->getMap()->getCollection()->getSetup($classname);
+        // get setup for static || dynamic
+        if ($this->_mode === self::MODE_DYNAMIC) {
+            $setup = $this->getMap()->getCollection()->getSetup($classname);
 
-		} else {
-			$setup = $this->getMap()->getCollection()->getSetup($classname);
-			//$setup = $this->getMap()->buildCollection($classname)->getSetup($classname);
+        } else {
+            $setup = $this->getMap()->getCollection()->getSetup($classname);
+            //$setup = $this->getMap()->buildCollection($classname)->getSetup($classname);
 
-		}
+        }
 
-		// store arguments if given
-		if ($arguments !== null && is_array($arguments)) {
-			$setup['arguments'] = $arguments;
-		}
+        // store arguments if given
+        if ($arguments !== null && is_array($arguments)) {
+            $setup['arguments'] = $arguments;
+        }
 
 
-		// check if a setup exists
+        // check if a setup exists
         if ($setup['dependencies'] === null) {
-			throw new Di_Exception(
-				'Error building instance. No setup for class "'.$classname.'" found!'
-			);
-		}
+            throw new Di_Exception(
+                'Error building instance. No setup for class "'.$classname.'" found!'
+            );
+        }
 
         // build and return the object
         return $this->getFactory()->build(
@@ -340,16 +340,16 @@ class Di_Container
      */
     public function requirementsFulfilled()
     {
-		// get map
-    	$map = $this->getMap();
+        // get map
+        $map = $this->getMap();
 
-    	// check map
-    	if ($map && $map->getCollection()) {
-			return true;
-    	}
+        // check map
+        if ($map && $map->getCollection()) {
+            return true;
+        }
 
-    	// failed
-    	return false;
+        // failed
+        return false;
     }
 
     /**

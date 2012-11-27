@@ -54,7 +54,7 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB.'Exception.php';
+require_once DI_PATH_LIB_DI.'Exception.php';
 
 /**
  * Di Importer Abstract
@@ -146,10 +146,10 @@ abstract class Di_Importer_Abstract
      */
     public function setInput($input)
     {
-    	// reset on setting new input!
+        // reset on setting new input!
         $this->reset();
 
-    	$this->input = $input;
+        $this->input = $input;
 
         // fluent / chaining
         return $this;
@@ -168,7 +168,7 @@ abstract class Di_Importer_Abstract
      */
     public function getInput()
     {
-    	return $this->input;
+        return $this->input;
     }
 
     /**
@@ -184,7 +184,7 @@ abstract class Di_Importer_Abstract
      */
     public function reset()
     {
-		$this->input = null;
+        $this->input = null;
 
         // fluent / chaining
         return $this;

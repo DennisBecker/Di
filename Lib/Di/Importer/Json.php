@@ -54,10 +54,15 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB.'Importer/Abstract.php';
-require_once DI_PATH_LIB.'Importer/Interface.php';
-require_once DI_PATH_LIB.'Dependency.php';
-require_once DI_PATH_LIB.'Collection.php';
+require_once DI_PATH_LIB_DI.'Importer/Abstract.php';
+require_once DI_PATH_LIB_DI.'Importer/Interface.php';
+require_once DI_PATH_LIB_DI.'Dependency.php';
+require_once DI_PATH_LIB_DI.'Collection.php';
+
+/**
+ * external library Object-Freezer by Sebastian Bergmann
+ */
+require_once DI_PATH_LIB.'Object/Freezer.php';
 
 /**
  * Di Importer Json
@@ -93,59 +98,67 @@ class Di_Importer_Json extends Di_Importer_Abstract implements Di_Importer_Inter
      * @version 1.0
      * (non-PHPdoc)
      * @see Di_Importer_Interface::import()
+     * @throws  Di_Exception
      */
     public function import()
     {
         // check for collection
-    	if (!$this->collection) {
-    		throw new Di_Exception(
-    			'Could not import map. No collection set. Please set a collection first.'
-    		);
-    	}
+        if (!$this->collection) {
+            throw new Di_Exception(
+                'Could not import map. No collection set. Please set a collection first.'
+            );
+        }
 
-    	// check for input
-    	if (!$this->input) {
-			throw new Di_Exception(
-    			'Could not import map. No input set. Please set input first.'
-    		);
-    	}
+        // check for input
+        if (!$this->input) {
+            throw new Di_Exception(
+                'Could not import map. No input set. Please set input first.'
+            );
+        }
 
-    	// get content from file
+        // get content from file
         $content = $this->_getObjectFromJsonFile($this->input);
+
+        // get object freezer
+        $freezer = new Object_Freezer();
 
         // iterate over all dependencies defined -> here TARGET CLASSNAME
         foreach ($content->map as $target) {
             // iterate current stdClass to retrieve name of dependend class
             foreach ($target as $classname => $configuration) {
 
-				// arguments for target set?
-				if (isset($configuration->arguments)) {
-					$this->collection->addArguments($classname, $configuration->arguments);
-				}
+                // arguments for target set?
+                if (isset($configuration->arguments)) {
+                    $this->collection->addArguments($classname, $configuration->arguments);
+                }
 
-				// constructor (e.g. singleton static method ...)
-				if (isset($configuration->constructor)) {
-					$this->collection->setConstructor($classname, $configuration->constructor);
-				}
+                // constructor (e.g. singleton static method ...)
+                if (isset($configuration->constructor)) {
+                    $this->collection->setConstructor($classname, $configuration->constructor);
+                }
 
-				// get defined dependencies
+                // get defined dependencies
                 $dependencies = $configuration->dependencies;
 
                 // iterate all dependencies for target
                 foreach ($dependencies as $setup) {
 
-                	// create new Dependency Object
+                    // create new Dependency Object
                     $dependency = new Di_Dependency($setup->classname);
                     $dependency->setConfiguration((array) $setup->config);
-                    $dependency->setIdentifier($setup->id);
-                    $dependency->setInstance($setup->instance);
+                    $dependency->setIdentifier($setup->identifier);
+
+                    // check for frozen instance and thaw it if found
+                    if ($setup->instance !== null) {
+                        $dependency->setInstance($freezer->thaw(unserialize($setup->instance)));
+                    }
 
                     // store arguments
                     if (isset($setup->arguments)) {
                         $dependency->setArguments($setup->arguments);
                     }
 
-					// store constructor
+                    // store constructor
                     if (isset($setup->constructor)) {
                         $dependency->setConstructor($setup->constructor);
                     }

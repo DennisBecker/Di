@@ -5,7 +5,7 @@
                 "arguments": ["I R Baboon!"],
                 "dependencies": [
                     {
-                        "id": "Database1",
+                        "identifier": "Database1",
                         "classname": "Database",
                         "arguments": ["foo", "bar", "baz"],
                         "instance": null,
@@ -14,7 +14,7 @@
                         }
                     },
                     {
-                        "id": "Logger1",
+                        "identifier": "Logger1",
                         "classname": "Logger",
                         "instance": null,
                         "config": {
@@ -24,11 +24,11 @@
                     }
                 ]
             },
-			"Bar": {
-			    "constructor": "getInstance",
+            "Bar": {
+                "constructor": "getInstance",
                 "dependencies": [
                     {
-                        "id": "Database1",
+                        "identifier": "Database1",
                         "classname": "Database",
                         "instance": null,
                         "config": {
@@ -36,7 +36,7 @@
                         }
                     },
                     {
-                        "id": "Logger1",
+                        "identifier": "Logger1",
                         "classname": "Logger",
                         "instance": null,
                         "config": {
@@ -44,7 +44,7 @@
                         }         
                     }
                 ]
-			}
-        }
+            }
+        }            
     ]
 }

@@ -54,9 +54,9 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB.'Parser/Abstract.php';
-require_once DI_PATH_LIB.'Parser/Interface.php';
-require_once DI_PATH_LIB.'Exception.php';
+require_once DI_PATH_LIB_DI.'Parser/Abstract.php';
+require_once DI_PATH_LIB_DI.'Parser/Interface.php';
+require_once DI_PATH_LIB_DI.'Exception.php';
 
 /**
  * Di Constructor Parser
@@ -93,15 +93,15 @@ class Di_Parser_Constructor extends Di_Parser_Abstract implements Di_Parser_Inte
      */
     public function parse()
     {
-		// check if all requirements are fulfilled
-		if (!$this->requirementsFulfilled()) {
-			throw new Di_Exception(
-    			'Error parsing constructor. Requirements not fulfilled. Please set input to parse constructor from.'
-    		);
-		}
+        // check if all requirements are fulfilled
+        if (!$this->requirementsFulfilled()) {
+            throw new Di_Exception(
+                'Error parsing constructor. Requirements not fulfilled. Please set input to parse constructor from.'
+            );
+        }
 
-    	// prepare input for parser
-    	$this->prepareInput();
+        // prepare input for parser
+        $this->prepareInput();
 
         // if called from outside we maybe need a new instance of reflection
         if (!class_exists($this->input['class']) && !$this->input['reflection']) {
@@ -120,42 +120,42 @@ class Di_Parser_Constructor extends Di_Parser_Abstract implements Di_Parser_Inte
 
         // get filename of class
         if (!isset($this->input['file'])) {
-        	$this->input['file'] = $reflectionInstance->getFileName();
+            $this->input['file'] = $reflectionInstance->getFileName();
         }
 
-		/* @var ReflectionInstance $reflectionInstance */
+        /* @var ReflectionInstance $reflectionInstance */
         if ($reflectionInstance->isInstantiable()) {
-			$constructor = '__construct';
+            $constructor = '__construct';
 
         } else {
-	        // read the file as array
-	        $sourcecode = file($this->input['file']);
+            // read the file as array
+            $sourcecode = file($this->input['file']);
 
-	        // lets find the "real" constructor -> the instance can only be created by a static method
-	        $possibleConstructors = $reflectionInstance->getMethods(ReflectionMethod::IS_STATIC);
+            // lets find the "real" constructor -> the instance can only be created by a static method
+            $possibleConstructors = $reflectionInstance->getMethods(ReflectionMethod::IS_STATIC);
 
-	        // default no constructor
-	        $constructor = null;
+            // default no constructor
+            $constructor = null;
 
-	        // iterate over static methods and check for instantiation
-	        foreach ($possibleConstructors as $possibleConstructor) {
-	            $start = $possibleConstructor->getStartLine()+1;
-	            $end   = $possibleConstructor->getEndline()-1;
-	            $methodSourcecode = '';
+            // iterate over static methods and check for instantiation
+            foreach ($possibleConstructors as $possibleConstructor) {
+                $start = $possibleConstructor->getStartLine()+1;
+                $end   = $possibleConstructor->getEndline()-1;
+                $methodSourcecode = '';
 
-	            // concat sourcecode lines
-	            for ($i = $start; $i < $end; ++$i) {
-	                $methodSourcecode .= $sourcecode[$i];
-	            }
+                // concat sourcecode lines
+                for ($i = $start; $i < $end; ++$i) {
+                    $methodSourcecode .= $sourcecode[$i];
+                }
 
-	            // check for instantiation
-	            if (strpos($methodSourcecode, 'new self(')
-	            	|| strpos($methodSourcecode, 'new '.$this->input['class'].'(')
-	            ) {
-	                $constructor = $possibleConstructor->name;
-	                break;
-	            }
-	        }
+                // check for instantiation
+                if (strpos($methodSourcecode, 'new self(')
+                    || strpos($methodSourcecode, 'new '.$this->input['class'].'(')
+                ) {
+                    $constructor = $possibleConstructor->name;
+                    break;
+                }
+            }
         }
 
         // return the name of constructor method
@@ -176,7 +176,7 @@ class Di_Parser_Constructor extends Di_Parser_Abstract implements Di_Parser_Inte
      */
     public function requirementsFulfilled()
     {
-    	return ($this->input !== null);
+        return ($this->input !== null);
     }
 }
 

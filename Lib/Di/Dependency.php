@@ -327,7 +327,7 @@ class Di_Dependency implements ArrayAccess
      */
     public function setConstructor($constructor)
     {
-		return ($this->_constructor = $constructor);
+        return ($this->_constructor = $constructor);
     }
 
     /**
@@ -343,7 +343,7 @@ class Di_Dependency implements ArrayAccess
      */
     public function getConstructor()
     {
-    	return $this->_constructor;
+        return $this->_constructor;
     }
 
     /**
@@ -360,7 +360,7 @@ class Di_Dependency implements ArrayAccess
      */
     public function hasConstructor()
     {
-    	return isset($this->_constructor);
+        return isset($this->_constructor);
     }
 
     /**
@@ -397,8 +397,8 @@ class Di_Dependency implements ArrayAccess
     public function getConfiguration()
     {
         return (!$this->_configuration)
-        	? array('type' => 'constructor')
-        	: $this->_configuration;
+            ? array('type' => 'constructor')
+            : $this->_configuration;
     }
 
     /**
@@ -514,7 +514,7 @@ class Di_Dependency implements ArrayAccess
      */
     public function offsetUnset($offset)
     {
-    	unset($this->{$offset});
+        unset($this->{$offset});
     }
 }
 

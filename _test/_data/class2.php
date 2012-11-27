@@ -10,9 +10,9 @@ class Foo
     private $_timestamp;
     public  $Logger1;
 
-	/**
-	 * @DiInject DependencyName Foo
-	 */
+    /**
+     * @DiInject DependencyName Foo
+     */
     public function __construct(Database $Database1, $customArgument)
     {
         $this->_database       = $Database1;

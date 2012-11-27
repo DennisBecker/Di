@@ -54,9 +54,9 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB.'Parser/Abstract.php';
-require_once DI_PATH_LIB.'Parser/Interface.php';
-require_once DI_PATH_LIB.'Exception.php';
+require_once DI_PATH_LIB_DI.'Parser/Abstract.php';
+require_once DI_PATH_LIB_DI.'Parser/Interface.php';
+require_once DI_PATH_LIB_DI.'Exception.php';
 
 /**
  * Di Annotation Parser
@@ -75,13 +75,13 @@ require_once DI_PATH_LIB.'Exception.php';
  */
 class Di_Parser_Annotation extends Di_Parser_Abstract implements Di_Parser_Interface
 {
-	/**
-	 * The pattern used to identify our annotations
-	 *
-	 * @var string
-	 * @access const
-	 */
-	const BASE_PATTERN = 'DiInject';
+    /**
+     * The pattern used to identify our annotations
+     *
+     * @var string
+     * @access const
+     */
+    const BASE_PATTERN = 'DiInject';
 
     /**
      * The range to parse from
@@ -93,7 +93,7 @@ class Di_Parser_Annotation extends Di_Parser_Abstract implements Di_Parser_Inter
     const RANGE_CLASS          = 2;
     const RANGE_METHODS        = 3;
     const RANGE_PROPERTIES     = 4;
-	const RANGE_SINGLE_ELEMENT = 5;
+    const RANGE_SINGLE_ELEMENT = 5;
 
 
     /*******************************************************************************************************************
@@ -119,34 +119,34 @@ class Di_Parser_Annotation extends Di_Parser_Abstract implements Di_Parser_Inter
     public function parse($range = self::RANGE_EVERYTHING)
     {
         // check if all requirements are fulfilled
-		if (!$this->requirementsFulfilled()) {
-			throw new Di_Exception(
-    			'Error parsing annotations. Requirements not fulfilled. Please set input to parse annotations from.'
-    		);
-		}
+        if (!$this->requirementsFulfilled()) {
+            throw new Di_Exception(
+                'Error parsing annotations. Requirements not fulfilled. Please set input to parse annotations from.'
+            );
+        }
 
-    	// prepare input
-		$input = $this->getInput();
+        // prepare input
+        $input = $this->getInput();
 
-		// check if class is already in scope
-		if (!class_exists($input['class'])) {
-			if (!isset($input['file'])) {
-				throw new Di_Exception(
-					'Error parsing dependencies from class. Class not found in scope and no "file" defined!'
-				);
-			}
+        // check if class is already in scope
+        if (!class_exists($input['class'])) {
+            if (!isset($input['file'])) {
+                throw new Di_Exception(
+                    'Error parsing dependencies from class. Class not found in scope and no "file" defined!'
+                );
+            }
 
-			$this->loadFile($input['file']);
-		}
+            $this->loadFile($input['file']);
+        }
 
-		// create a reflection instance of the class
-		$reflection = new ReflectionClass($input['class']);
+        // create a reflection instance of the class
+        $reflection = new ReflectionClass($input['class']);
 
-		// parse annotation(s) from reflection and return result
-		$this->lastResult = $this->_parseFromReflectionByRange($reflection, $range);
+        // parse annotation(s) from reflection and return result
+        $this->lastResult = $this->_parseFromReflectionByRange($reflection, $range);
 
-		//
-		return $this->lastResult;
+        //
+        return $this->lastResult;
     }
 
     /**
@@ -180,10 +180,10 @@ class Di_Parser_Annotation extends Di_Parser_Abstract implements Di_Parser_Inter
     public function numberOfCommands()
     {
         /*
-    	return (isset($this->data['matches'][1]))
-    		? count($this->data['matches'][1])
-			: 0;
-		*/
+        return (isset($this->data['matches'][1]))
+            ? count($this->data['matches'][1])
+            : 0;
+        */
         return (is_array($this->lastResult)) ? count($this->lastResult) : 0;
     }
 
@@ -201,22 +201,22 @@ class Di_Parser_Annotation extends Di_Parser_Abstract implements Di_Parser_Inter
      */
     public function requirementsFulfilled()
     {
-    	return ($this->input !== null);
+        return ($this->input !== null);
     }
 
     /*******************************************************************************************************************
      * PRIVATE + PROTECTED
      ******************************************************************************************************************/
 
-	/**
-	 * Parses the dependencies from a given reflection for defined range and optional method or property
-	 *
-	 * This method is intend to parse the dependencies from a given reflection for defined range and
-	 * optional method or property.
-	 *
-	 * @param ReflectionClass $reflection The reflection instance to parse from
-	 * @param integer         $range      The range to parse from
-	 *
+    /**
+     * Parses the dependencies from a given reflection for defined range and optional method or property
+     *
+     * This method is intend to parse the dependencies from a given reflection for defined range and
+     * optional method or property.
+     *
+     * @param ReflectionClass $reflection The reflection instance to parse from
+     * @param integer         $range      The range to parse from
+     *
      * @return  array An raw array containing the dependencies indexed
      * @access  private
      * @author  Benjamin Carl <opensource@clickalicious.de>
@@ -225,36 +225,36 @@ class Di_Parser_Annotation extends Di_Parser_Abstract implements Di_Parser_Inter
      */
     private function _parseFromReflectionByRange(ReflectionClass $reflection, $range)
     {
-    	$dependencies = array();
+        $dependencies = array();
 
-		switch ($range) {
-		case self::RANGE_CLASS:
-			$dependencies = array_merge($dependencies, $this->_parseFromClassComment($reflection));
-			break;
+        switch ($range) {
+        case self::RANGE_CLASS:
+            $dependencies = array_merge($dependencies, $this->_parseFromClassComment($reflection));
+            break;
 
-		case self::RANGE_METHODS:
-			$dependencies = array_merge($dependencies, $this->_parseFromClassMethods($reflection));
-			break;
+        case self::RANGE_METHODS:
+            $dependencies = array_merge($dependencies, $this->_parseFromClassMethods($reflection));
+            break;
 
-		case self::RANGE_PROPERTIES:
-			$dependencies = array_merge($dependencies, $this->_parseFromClassProperties($reflection));
-			break;
+        case self::RANGE_PROPERTIES:
+            $dependencies = array_merge($dependencies, $this->_parseFromClassProperties($reflection));
+            break;
 
-		case self::RANGE_SINGLE_ELEMENT:
-			throw new Di_Exception(
-				'Parsing from single element not implemented yet!'
-			);
-			break;
+        case self::RANGE_SINGLE_ELEMENT:
+            throw new Di_Exception(
+                'Parsing from single element not implemented yet!'
+            );
+            break;
 
-		default:
-		case self::RANGE_EVERYTHING:
-			$dependencies = array_merge($dependencies, $this->_parseFromClassComment($reflection));
-			$dependencies = array_merge($dependencies, $this->_parseFromClassMethods($reflection));
-			$dependencies = array_merge($dependencies, $this->_parseFromClassProperties($reflection));
-			break;
-		}
+        default:
+        case self::RANGE_EVERYTHING:
+            $dependencies = array_merge($dependencies, $this->_parseFromClassComment($reflection));
+            $dependencies = array_merge($dependencies, $this->_parseFromClassMethods($reflection));
+            $dependencies = array_merge($dependencies, $this->_parseFromClassProperties($reflection));
+            break;
+        }
 
-		return $dependencies;
+        return $dependencies;
     }
 
     /**
@@ -273,9 +273,9 @@ class Di_Parser_Annotation extends Di_Parser_Abstract implements Di_Parser_Inter
      */
     private function _getAnnotationFromSource($sourcecode)
     {
-		// parse annotations out of source
+        // parse annotations out of source
         $this->data['matched'] = preg_match_all(
-    		'/@'.self::BASE_PATTERN.'(.*?)(\n|$)/i',
+            '/@'.self::BASE_PATTERN.'(.*?)(\n|$)/i',
             $sourcecode,
             $this->data['matches']
         );
@@ -286,11 +286,11 @@ class Di_Parser_Annotation extends Di_Parser_Abstract implements Di_Parser_Inter
         // check for command
         if ($this->hasCommand()) {
 
-        	// iterate over matches
+            // iterate over matches
             foreach ($this->data['matches'][1] as $command) {
 
-				// trim whitespaces
-				$command = trim($command);
+                // trim whitespaces
+                $command = trim($command);
 
                 // get default dependencies (skeleton)
                 $tmp = $this->getDefaultSekeleton();
@@ -300,41 +300,41 @@ class Di_Parser_Annotation extends Di_Parser_Abstract implements Di_Parser_Inter
 
                 // store identifier
                 if (stristr($arguments[0], ':')) {
-                	$identifier = explode(':', $arguments[0]);
-                	$tmp['class']      = $identifier[0];
-                	$tmp['identifier'] = $identifier[1];
+                    $identifier = explode(':', $arguments[0]);
+                    $tmp['class']      = $identifier[0];
+                    $tmp['identifier'] = $identifier[1];
                 } else {
-                	$tmp['identifier'] = $arguments[0];
+                    $tmp['identifier'] = $arguments[0];
                 }
 
                 $countArguments = count($arguments);
 
-				if ($countArguments > 1) {
-					for ($i = 1; $i < $countArguments; ++$i) {
-						$keyValuePair = explode(':', $arguments[$i]);
+                if ($countArguments > 1) {
+                    for ($i = 1; $i < $countArguments; ++$i) {
+                        $keyValuePair = explode(':', $arguments[$i]);
 
-						if (count($keyValuePair) == 2) {
-							$tmp[$keyValuePair[0]] = $keyValuePair[1];
-						} else {
-							$tmp['type'] = $keyValuePair[0];
-						}
-					}
-				}
+                        if (count($keyValuePair) == 2) {
+                            $tmp[$keyValuePair[0]] = $keyValuePair[1];
+                        } else {
+                            $tmp['type'] = $keyValuePair[0];
+                        }
+                    }
+                }
 
-				$result[] = $tmp;
+                $result[] = $tmp;
             }
         }
 
-		return $result;
+        return $result;
     }
 
-	/**
-	 * Parses the dependencies from a given reflection out of the class' comment
-	 *
-	 * This method is intend to parse the dependencies from a given reflection out of the class' comment.
-	 *
-	 * @param ReflectionClass $reflection The reflection instance to parse from
-	 *
+    /**
+     * Parses the dependencies from a given reflection out of the class' comment
+     *
+     * This method is intend to parse the dependencies from a given reflection out of the class' comment.
+     *
+     * @param ReflectionClass $reflection The reflection instance to parse from
+     *
      * @return  array An raw array containing the dependencies indexed
      * @access  private
      * @author  Benjamin Carl <opensource@clickalicious.de>
@@ -346,13 +346,13 @@ class Di_Parser_Annotation extends Di_Parser_Abstract implements Di_Parser_Inter
         return $this->_getAnnotationFromSource($reflection->getDocComment());
     }
 
-	/**
-	 * Parses the dependencies from a given reflection out of the class' methods
-	 *
-	 * This method is intend to parse the dependencies from a given reflection out of the class' methods.
-	 *
-	 * @param ReflectionClass $reflection The reflection instance to parse from
-	 *
+    /**
+     * Parses the dependencies from a given reflection out of the class' methods
+     *
+     * This method is intend to parse the dependencies from a given reflection out of the class' methods.
+     *
+     * @param ReflectionClass $reflection The reflection instance to parse from
+     *
      * @return  array An raw array containing the dependencies indexed
      * @access  private
      * @author  Benjamin Carl <opensource@clickalicious.de>
@@ -361,30 +361,30 @@ class Di_Parser_Annotation extends Di_Parser_Abstract implements Di_Parser_Inter
      */
     private function _parseFromClassMethods(ReflectionClass $reflection)
     {
-    	$result = array();
+        $result = array();
 
-		// get dependencies from method comment
-		$reflectionMethods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
+        // get dependencies from method comment
+        $reflectionMethods = $reflection->getMethods(ReflectionMethod::IS_PUBLIC);
 
-		/* @var $reflectionMethod ReflectionMethod */
-		foreach ($reflectionMethods as $reflectionMethod) {
-			$tmpDependency = $this->_getAnnotationFromSource($reflectionMethod->getDocComment());
+        /* @var $reflectionMethod ReflectionMethod */
+        foreach ($reflectionMethods as $reflectionMethod) {
+            $tmpDependency = $this->_getAnnotationFromSource($reflectionMethod->getDocComment());
 
-			if ($tmpDependency) {
-				$result[$reflectionMethod->getName()] = $tmpDependency;
-			}
-		}
+            if ($tmpDependency) {
+                $result[$reflectionMethod->getName()] = $tmpDependency;
+            }
+        }
 
-		return $result;
+        return $result;
     }
 
-	/**
-	 * Parses the dependencies from a given reflection out of the class' properties
-	 *
-	 * This method is intend to parse the dependencies from a given reflection out of the class' properties.
-	 *
-	 * @param ReflectionClass $reflection The reflection instance to parse from
-	 *
+    /**
+     * Parses the dependencies from a given reflection out of the class' properties
+     *
+     * This method is intend to parse the dependencies from a given reflection out of the class' properties.
+     *
+     * @param ReflectionClass $reflection The reflection instance to parse from
+     *
      * @return  array An raw array containing the dependencies indexed
      * @access  private
      * @author  Benjamin Carl <opensource@clickalicious.de>
@@ -393,20 +393,20 @@ class Di_Parser_Annotation extends Di_Parser_Abstract implements Di_Parser_Inter
      */
     private function _parseFromClassProperties(ReflectionClass $reflection)
     {
-    	$result = array();
+        $result = array();
 
-		// get dependencies from property comment
-		$reflectionProperties = $reflection->getProperties(ReflectionProperty::IS_PUBLIC);
+        // get dependencies from property comment
+        $reflectionProperties = $reflection->getProperties(ReflectionProperty::IS_PUBLIC);
 
-		foreach ($reflectionProperties as $reflectionProperty) {
-			$tmpDependency = $this->_getAnnotationFromSource($reflectionProperty->getDocComment());
+        foreach ($reflectionProperties as $reflectionProperty) {
+            $tmpDependency = $this->_getAnnotationFromSource($reflectionProperty->getDocComment());
 
-			if ($tmpDependency) {
-				$result[$reflectionProperty->getName()] = $tmpDependency;
-			}
-		}
+            if ($tmpDependency) {
+                $result[$reflectionProperty->getName()] = $tmpDependency;
+            }
+        }
 
-		return $result;
+        return $result;
     }
 }
 
