@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$class_di___container.html#a6c33ce53a9302ce1fce1d4d284042f42" title="_mergeMaps" alt="" coords="121,32,217,61"/>
-<area shape="rect" id="node9" href="$class_di___container.html#a831bfd2e8f3f041f518f9815cb503bda" title="getMap" alt="" coords="137,85,201,115"/>
-<area shape="rect" id="node5" href="$class_di___map.html#a06412eb3b5af8cd7d978ac6eab667fbf" title="Di_Map::export" alt="" coords="268,5,377,35"/>
-<area shape="rect" id="node7" href="$class_di___map.html#a7824a357884dfb4479d0e30081239063" title="Di_Map::import" alt="" coords="268,59,377,88"/>
-</map>

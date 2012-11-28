@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node1" href="$class_di___parser___abstract.html" title="Di_Parser_Abstract" alt="" coords="7,32,140,61"/>
-<area shape="rect" id="node3" href="$class_di___parser___annotation.html" title="Di_Parser_Annotation" alt="" coords="193,5,340,35"/>
-<area shape="rect" id="node5" href="$class_di___parser___constructor.html" title="Di_Parser_Constructor" alt="" coords="191,59,343,88"/>
-<area shape="rect" id="node7" href="$class_di___parser___typehint.html" title="Di_Parser_Typehint" alt="" coords="200,112,333,141"/>
-<area shape="rect" id="node8" href="$interface_di___parser___interface.html" title="Di_Parser_Interface" alt="" coords="7,85,140,115"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$class_di___parser___dependency.html#a45d058e014fdafe389991a0037fa4e5c" title="_parseFromClassComment" alt="" coords="161,5,357,32"/>
-<area shape="rect" id="node9" href="$class_di___parser___dependency.html#a963c8da350034183abc6b01f44ac7461" title="_parseFromClassMethods" alt="" coords="165,56,352,83"/>
-<area shape="rect" id="node12" href="$class_di___parser___dependency.html#af7c19462c0d5f6a2c1f3d1441a5ee8cb" title="_parseFromClassProperties" alt="" coords="160,107,357,133"/>
-<area shape="rect" id="node5" href="$class_di___parser___dependency.html#ae8e7b081ba9bad569a2f670642494646" title="_parseFromReflectionByRange" alt="" coords="405,56,621,83"/>
-<area shape="rect" id="node7" href="$class_di___parser___dependency.html#a63b8e08fda80a1cd6aced89171acbb4c" title="parse" alt="" coords="669,56,728,83"/>
-</map>

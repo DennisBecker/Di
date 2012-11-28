@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$class_di___factory.html#abe01f08eb553a464dfffa71cde54b49f" title="_constructorInjection" alt="" coords="169,5,311,35"/>
-<area shape="rect" id="node7" href="$class_di___factory.html#af3160b87b98beb951023d9da7def1c36" title="_mergeArguments" alt="" coords="176,59,304,88"/>
-<area shape="rect" id="node9" href="$class_di___factory.html#ab1da98aab9a941f0f4b547e0b1db6c06" title="_parseInjections" alt="" coords="183,112,297,141"/>
-<area shape="rect" id="node11" href="$class_di___factory.html#abcf41873a604bfe8e6bf28b6dc306687" title="_propertyInjection" alt="" coords="179,165,301,195"/>
-<area shape="rect" id="node13" href="$class_di___factory.html#a41a1de7dd62648681e8b0ae54cf05c00" title="_setterInjection" alt="" coords="185,219,295,248"/>
-<area shape="rect" id="node5" href="$class_di___factory.html#aacb2a50130330d10018fba7dfd29d320" title="construct" alt="" coords="361,5,436,35"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$class_di___collection.html#ad21d892fadef484b88a98013e6785089" title="_initIndexByDependency" alt="" coords="188,5,353,35"/>
-<area shape="rect" id="node5" href="$class_di___collection.html#a42361fdf2bff008dcc7e0a06b0af14a5" title="_initIndexByTarget" alt="" coords="207,59,335,88"/>
-<area shape="rect" id="node7" href="$class_di___dependency.html#a2de0f0e912c2f4137ae5ce2687ef8fc5" title="Di_Dependency::getClassname" alt="" coords="169,112,372,141"/>
-</map>

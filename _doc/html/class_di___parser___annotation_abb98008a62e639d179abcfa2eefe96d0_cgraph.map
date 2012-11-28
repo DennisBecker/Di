@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node3" href="$class_di___parser___annotation.html#a45d058e014fdafe389991a0037fa4e5c" title="_parseFromClassComment" alt="" coords="259,5,437,35"/>
-<area shape="rect" id="node11" href="$class_di___parser___annotation.html#a963c8da350034183abc6b01f44ac7461" title="_parseFromClassMethods" alt="" coords="261,59,435,88"/>
-<area shape="rect" id="node14" href="$class_di___parser___annotation.html#af7c19462c0d5f6a2c1f3d1441a5ee8cb" title="_parseFromClassProperties" alt="" coords="257,112,439,141"/>
-<area shape="rect" id="node5" href="$class_di___parser___annotation.html#a05710b8850db6434e198ce39f9a6620f" title="_getAnnotationFromSource" alt="" coords="489,59,668,88"/>
-<area shape="rect" id="node7" href="$class_di___parser___abstract.html#aefd76dbebd56c19abaa6c02ceaa026b3" title="Di_Parser_Abstract::getDefaultSekeleton" alt="" coords="717,32,976,61"/>
-<area shape="rect" id="node9" href="$class_di___parser___annotation.html#a80a7695576bd9dd9b0498ecd8bd9595e" title="hasCommand" alt="" coords="796,85,897,115"/>
-</map>
