@@ -28,32 +28,160 @@
         </ul>
       </header>
       <section>
-        <h3>Welcome to GitHub Pages.</h3>
+        <h1><em>Di</em></h1>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p><strong><em>Di</em></strong> is the lightweight and powerful dependency injection framework written in and for PHP. <strong><em>Di</em></strong> supports all currently known and required types of injections (constructor, setter, property).
+<strong><em>Di</em></strong> is fully documented and really easy to use. <strong><em>Di</em></strong> is also under active development and of course it's unit-tested.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
+<h2>Features</h2>
+
+<ul>
+<li>
+<p>static-, dynamic-, annotation-based- and typehint-based- dependency maps</p>
+
+<ul>
+<li>
+<strong><em>Di</em></strong> is cappable of parsing dependencies out of "annotations" or just "typehints", can import dependencies from static JSON-based (filesystem) dependency maps and can handle at runtime defined dependencies (fluent interface).</li>
+</ul>
+</li>
+<li>
+<p>automagic wiring</p>
+
+<ul>
+<li>
+<strong><em>Di</em></strong> can automatically look in the global scope for an existing instance of the defined class and use this if found for wiring</li>
+</ul>
+</li>
+<li>
+<p>clear project-structure and clean code</p>
+
+<ul>
+<li>So it is really easy for you to get an detailed overview of what's going on in <strong><em>Di</em></strong>.</li>
+</ul>
+</li>
+<li>
+<p>no external dependencies</p>
+
+<ul>
+<li>
+<strong><em>Di</em></strong> does not need any special PHP-extension</li>
+</ul>
+</li>
+<li>
+<p>Fully documented</p>
+
+<ul>
+<li>Every part in <strong><em>Di</em></strong> is covered by a comment and/or a detailed howto</li>
+</ul>
+</li>
+<li>
+<p>Unit-Tested</p>
+
+<ul>
+<li>
+<strong><em>Di</em></strong> ist well tested and used in production environment</li>
+</ul>
+</li>
+<li>
+<p>easy to use</p>
+
+<ul>
+<li>
+<strong><em>Di</em></strong> provides a very good API for developers</li>
+</ul>
+</li>
+</ul><h2>Requirements</h2>
+
+<p><strong><em>Di</em></strong> requires at least PHP 5.3 and has no external dependencies. <strong><em>Di</em></strong> currently uses the PHP Reflection API to analyze classes. One of the planned features is using a regular expression based parser as replacement for the slow Reflection-API (for more details view <strong>Roadmap</strong>).</p>
+
+<h2>How dependency injection works</h2>
+
+<p>The dependency injection process is separated into three main parts. These parts cover the process from defining dependencies of a class to creating instances of a class having dependencies.</p>
+
+<ol>
+<li>
+<p><strong>Creating the dependency map</strong></p>
+
+<p><strong><em>Di</em></strong> needs to know a lot of information when creating instances via <em>build()</em>. The information is stored in a map - the so called <em>dependency map</em>.</p>
+</li>
+</ol><ul>
+<li>
+<p><strong>Connect Instances to the dependency map</strong></p>
+
+<p>This step is also known as <em>wiring</em> and it describes the creation of a relation between an instance of a class and the <em>dependency map</em> created in the previous step.</p>
+</li>
+<li>
+<p><strong>Building instances through the container</strong></p>
+
+<p>Instead of creating instances like you did it before (e.g.) <em>$Foo = new foo($dependency);</em> you must now use the <strong><em>Di</em></strong>-*container* to create instances. This is done by simply calling the build() method of your <strong><em>Di</em></strong>-*container* instance. See <strong>box 1</strong> for an example call:</p>
+</li>
+</ul><p><strong>box 1</strong></p>
+
+<pre><code>$Foo = $container-&gt;build('Foo');
 </code></pre>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h2>Usage</h2>
 
-<h3>Designer Templates</h3>
+<p><strong><em>Di</em></strong> can be used in four mainly different ways:</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<ol>
+<li>The <em>1st</em> way is using <strong><em>Di</em></strong> in combination with <em>static</em> dependency maps. This feature is required by systems (like frameworks) which for example generate the map automatically or retrieve dependencies from external sources.</li>
+</ol><ul>
+<li>The <em>2nd</em> and recommended way is using <strong><em>Di</em></strong> with <em>dynamic</em> build dependency maps. These maps can be build through a <em>fluent interface</em>. This is the easiest way for small projects and as a sideeffect: it produces good readable code (as recommended by Martin Fowler). See the <strong>box 2</strong> for an example call:</li>
+</ul><ol>
+<li><p>The 3rd way is using <strong><em>Di</em></strong> with <em>dynamic</em> build annotation based dependency maps. You only need to define the dependencies of a class in the PHPDoc class comment and make use of the <em>Di_Map_Annotation</em>  parser to retrieve a map ...</p></li>
+<li><p>The 4th way is using Di with Typehint based dependency maps. You only need to define the correct typehints within your classes and the Di_Map_Typehint parser does all the work for you.</p></li>
+</ol><p><strong>box 2</strong></p>
 
-<h3>Rather Drive Stick?</h3>
+<pre><code>$Foo = $map
+    -&gt;classname('Foo')
+    -&gt;dependsOn('Database')
+    -&gt;id('Database1')
+    -&gt;instance($Database1)
+    -&gt;configuration(array('type' =&gt; Di_Dependency::TYPE_CONSTRUCTOR, 'position' =&gt; 1))
+               -&gt;build(array('custom argument passed to Foo()'));
+</code></pre>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<h2>Demonstration</h2>
 
-<h3>Authors and Contributors</h3>
+<p>You will find detailed demonstrations (and the corresponding sourcecode) in the folder <strong><em>./_demo/</em></strong>. This should give you a good overview of what is possible with <strong><em>Di</em></strong> and what is (currently) not. The demonstrations cover the following topics:</p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<ul>
+<li>How to inject dependencies using a ...
 
-<h3>Support or Contact</h3>
+<ul>
+<li>static dependency map (JSON format) and manually wiring</li>
+<li>static dependency map (JSON format) and automagic wiring</li>
+<li>static dependency map (JSON format) and a class with singleton pattern</li>
+<li>static dependency map (JSON format) and using frozen objects so we don't need to wire</li>
+<li>static dependency map (JSON format) Export an existing Di_Collection (from any Di_Map instance) to a static map and freeze instances</li>
+<li>dynamic dependency map (fluent Interface) and manually wiring</li>
+<li>dynamic dependency map (fluent Interface) and automagic wiring</li>
+<li>dynamic dependency map (fluent Interface) and a class with singleton pattern</li>
+<li>dynamic dependency map (fluent Interface), automagic wiring and export to static dependency map (JSON format)</li>
+<li>annotation dependency map (annotations inline) and manually wiring</li>
+<li>annotation dependency map (annotations inline) and automagic wiring</li>
+<li>annotation dependency map (annotations inline) and a class with singleton pattern</li>
+<li>typehint dependency map (plain vanilla PHP) and manually wiring</li>
+<li>typehint dependency map (plain vanilla PHP) and automagic wiring</li>
+<li>typehint dependency map (plain vanilla PHP) and a class with singleton pattern</li>
+</ul>
+</li>
+</ul><h2>API Documentation</h2>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<p>The sourcecode is fully documented and you will find the documentation in the folder <strong><em>./_doc/html/</em></strong>.</p>
+
+<h2>Roadmap</h2>
+
+<p>This is the current roadmap of new features:</p>
+
+<ul>
+<li><p>Replace ReflectionClass/Method calls with custom regular expression based parser/analyzer</p></li>
+<li><p>Increasing code-coverage of the Unit-Tests from approximately 79% up to ~100% ;)</p></li>
+</ul><hr><p>Benjamin Carl | PHPFlüsterer
+Software-Architect</p>
+
+<p>Visit my Blog for the latest news - <a href="http://www.phpfluesterer.de">www.phpfluesterer.de</a></p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/clickalicious">clickalicious</a></p>
