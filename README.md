@@ -1,6 +1,8 @@
 *Di*
 ================================
 
+Master: [![Build Status](https://secure.travis-ci.org/clickalicious/Di.png?branch=master)](http://travis-ci.org/clickalicious/Di)
+
 ***Di*** is the lightweight and powerful dependency injection framework written in and for PHP. ***Di*** supports all currently known and required types of injections (constructor, setter, property).
 ***Di*** is fully documented and really easy to use. ***Di*** is also under active development and of course it's unit-tested.
 
@@ -105,7 +107,7 @@ You will find detailed demonstrations (and the corresponding sourcecode) in the 
  * typehint dependency map (plain vanilla PHP) and a class with singleton pattern
 
 
-   
+
 API Documentation
 -------------------------
 The sourcecode is fully documented and you will find the documentation in the folder ***./_doc/html/***.
