@@ -54,7 +54,7 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB_DI.'Map.php';
+//require_once DI_PATH_LIB_DI.'Map.php';
 
 /**
  * Di Map Annotation

@@ -3,6 +3,5 @@ php:
   - "5.4"
   - "5.3"
 
-# configure notifications (email, IRC, campfire etc)
-notifications:
-  email "opensource@clickalicious.de"
+before_script:
+  - composer install

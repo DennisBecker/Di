@@ -1,9 +1,9 @@
 <?php
 
-require_once '../Lib/Di/Bootstrap.php';
-require_once 'PHPUnit/Autoload.php';
-
-require_once '../Lib/Di/Importer/Json.php';
+//require_once '../Lib/Di/Bootstrap.php';
+//require_once 'PHPUnit/Autoload.php';
+//
+//require_once '../Lib/Di/Importer/Json.php';
 
 
 class DiTests_Importer_JsonTest extends PHPUnit_Framework_TestCase
@@ -25,8 +25,8 @@ class DiTests_Importer_JsonTest extends PHPUnit_Framework_TestCase
     {
         $this->_collection    = new Di_Collection();
         $this->_item          = new Di_Importer_Json();
-        $this->_validSource   = '_data/map1.json';
-        $this->_invalidSource = '_data/map2.json';
+        $this->_validSource   = __DIR__ . '/../_data/map1.json';
+        $this->_invalidSource = __DIR__ . '/../_data/map2.json';
         $this->_random        = md5(time());
     }
 

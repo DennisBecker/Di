@@ -1,0 +1,38 @@
+{
+	"name": "clickalicious/di",
+	"description": "Di is a dependency injection container",
+	"type": "library",
+	"version": "1.0",
+	"license": "BSD-2-Clause",
+	"authors": [
+		{
+			"name": "Benjamin Carl",
+			"email": "opensource@clickalicious.de"
+		},
+		{
+			"name": "Dennis Becker",
+			"email": "mail.dennisbecker@gmail.com"
+		}
+	],
+	"config": {
+		"bin-dir": "bin"
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/DennisBecker/php-object-freezer.git"
+		}
+	],
+	"require": {
+		"php": ">=5.2",
+		"object-freezer/object-freezer": "dev-master"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "3.7.*"
+	},
+	"autoload": {
+		"psr-0": {
+			"Di_": "Lib/"
+		}
+	}
+}

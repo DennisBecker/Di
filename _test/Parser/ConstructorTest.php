@@ -1,9 +1,9 @@
 <?php
 
-require_once '../Lib/Di/Bootstrap.php';
-require_once 'PHPUnit/Autoload.php';
-
-require_once '../Lib/Di/Parser/Constructor.php';
+//require_once '../Lib/Di/Bootstrap.php';
+//require_once 'PHPUnit/Autoload.php';
+//
+//require_once '../Lib/Di/Parser/Constructor.php';
 
 class Bar1
 {
@@ -45,8 +45,8 @@ class DiTests_Parser_ConstructorTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->_item            = new Di_Parser_Constructor();
-        $this->_inputSet1       = array('class' => 'Foo1', 'file' => '_data/class.php', 'reflection' => false);
-        $this->_inputSet2       = array('class' => 'Foo1', 'file' => '_data/class.', 'reflection' => false);
+        $this->_inputSet1       = array('class' => 'Foo1', 'file' => __DIR__ . '/../_data/class.php', 'reflection' => false);
+        $this->_inputSet2       = array('class' => 'Foo1', 'file' => __DIR__ . '/../_data/class.', 'reflection' => false);
         $this->_inputSet3       = array('class' => 'Fo', 'reflection' => false);
         $this->_inputSet4       = array('class' => 'Bar1');
         $this->_inputSet5       = 'Bar1';
