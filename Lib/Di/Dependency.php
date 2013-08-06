@@ -436,7 +436,42 @@ class Di_Dependency implements ArrayAccess
      */
     public function getRandomId()
     {
-        return sha1(serialize($this).microtime());
+        $bytes = $this->getBytes(64);
+        return sha1(serialize($this).$bytes);
+    }
+
+    /**
+     * Generate string random bytes as random salt for getRandomId()
+     *
+     * @param int $length
+     * @throws RuntimeException
+     * @return string
+     */
+    private function getBytes($length)
+    {
+        if (function_exists('openssl_random_pseudo_bytes')
+            && (version_compare(PHP_VERSION, '5.3.4') >= 0
+                || strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN')
+        ) {
+            $bytes = openssl_random_pseudo_bytes($length, $usable);
+            if (true === $usable) {
+                return $bytes;
+            }
+        }
+        if (function_exists('mcrypt_create_iv')
+            && (version_compare(PHP_VERSION, '5.3.7') >= 0
+                || strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN')
+        ) {
+            $bytes = mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
+            if ($bytes !== false && strlen($bytes) === $length) {
+                return $bytes;
+            }
+        }
+
+        throw new RuntimeException (
+            'Unable to generate sufficiently strong random bytes due to a lack ',
+            'of sources with sufficient entropy'
+        );
     }
 
 
