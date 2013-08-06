@@ -1,9 +1,9 @@
 <?php
 
-require_once '../Lib/Di/Bootstrap.php';
-require_once 'PHPUnit/Autoload.php';
-
-require_once '../Lib/Di/Parser/Annotation.php';
+//require_once '../Lib/Di/Bootstrap.php';
+//require_once 'PHPUnit/Autoload.php';
+//
+//require_once '../Lib/Di/Parser/Annotation.php';
 
 
 class DiTests_Parser_AnnotationTest extends PHPUnit_Framework_TestCase
@@ -12,7 +12,6 @@ class DiTests_Parser_AnnotationTest extends PHPUnit_Framework_TestCase
      * Instance of the class to test
      *
      * @var Di_Parser_Annnotation
-     * @access private
      */
     private $_item;
     private $_validInput;
@@ -23,7 +22,7 @@ class DiTests_Parser_AnnotationTest extends PHPUnit_Framework_TestCase
     {
         /* @var $this->_item Di_Parser_Annotation */
         $this->_item         = new Di_Parser_Annotation();
-        $this->_validInput   = file_get_contents('_data/class.php');
+        $this->_validInput   = file_get_contents(__DIR__ . '/../_data/class.php');
         $this->_invalidInput = array('Hello', 'World');
     }
 
@@ -44,6 +43,8 @@ class DiTests_Parser_AnnotationTest extends PHPUnit_Framework_TestCase
         $this->_item->setInput(
             $this->_validInput
         );
+
+        $this->assertAttributeEquals($this->_validInput, 'input', $this->_item);
     }
 
     /**
@@ -86,7 +87,7 @@ class DiTests_Parser_AnnotationTest extends PHPUnit_Framework_TestCase
         $this->_item->setInput(
             array(
                 'class' => 'Foo1',
-                'file'  => '_data/class.php'
+                'file'  => __DIR__ . '/../_data/class.php'
             )
         );
 
@@ -136,7 +137,7 @@ class DiTests_Parser_AnnotationTest extends PHPUnit_Framework_TestCase
         $this->_item->setInput(
             array(
                 'class' => 'Foo1',
-                'file'  => '_data/class.php'
+                'file'  => __DIR__ . '/../_data/class.php'
             )
         )->parse();
 
@@ -155,7 +156,7 @@ class DiTests_Parser_AnnotationTest extends PHPUnit_Framework_TestCase
         $this->_item->setInput(
             array(
                 'class' => 'Foo1',
-                'file'  => '_data/class.php'
+                'file'  => __DIR__ . '/../_data/class.php'
             )
         )->parse();
 

@@ -54,9 +54,9 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB_DI.'Parser/Abstract.php';
-require_once DI_PATH_LIB_DI.'Parser/Interface.php';
-require_once DI_PATH_LIB_DI.'Exception.php';
+//require_once DI_PATH_LIB_DI.'Parser/Abstract.php';
+//require_once DI_PATH_LIB_DI.'Parser/Interface.php';
+//require_once DI_PATH_LIB_DI.'Exception.php';
 
 /**
  * Di Annotation Parser

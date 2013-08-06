@@ -1,8 +1,8 @@
 <?php
 
-require_once '../Lib/Di/Bootstrap.php';
-require_once 'PHPUnit/Autoload.php';
-require_once '../Lib/Di/Dependency.php';
+//require_once '../Lib/Di/Bootstrap.php';
+//require_once 'PHPUnit/Autoload.php';
+//require_once '../Lib/Di/Dependency.php';
 
 
 class DiTests_DependencyTest extends PHPUnit_Framework_TestCase
@@ -381,9 +381,13 @@ class DiTests_DependencyTest extends PHPUnit_Framework_TestCase
             $this->_item[$offset] = $valueToSet;
         }
 
+        $this->assertAttributeNotEmpty('_classname', $this->_item);
+
         foreach ($offsetValueMatrix as $offset => $value) {
             unset($this->_item[$offset]);
         }
+
+        $this->assertAttributeEmpty('_classname', $this->_item);
     }
 }
 

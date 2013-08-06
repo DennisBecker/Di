@@ -54,10 +54,10 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB_DI.'Map.php';
-require_once DI_PATH_LIB_DI.'Dependency.php';
-require_once DI_PATH_LIB_DI.'Factory.php';
-require_once DI_PATH_LIB_DI.'Exception.php';
+//require_once DI_PATH_LIB_DI.'Map.php';
+//require_once DI_PATH_LIB_DI.'Dependency.php';
+//require_once DI_PATH_LIB_DI.'Factory.php';
+//require_once DI_PATH_LIB_DI.'Exception.php';
 
 /**
  * Di Container

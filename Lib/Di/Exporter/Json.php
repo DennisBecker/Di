@@ -54,10 +54,10 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once DI_PATH_LIB_DI.'Exporter/Abstract.php';
-require_once DI_PATH_LIB_DI.'Exporter/Interface.php';
-require_once DI_PATH_LIB_DI.'Dependency.php';
-require_once DI_PATH_LIB_DI.'Collection.php';
+//require_once DI_PATH_LIB_DI.'Exporter/Abstract.php';
+//require_once DI_PATH_LIB_DI.'Exporter/Interface.php';
+//require_once DI_PATH_LIB_DI.'Dependency.php';
+//require_once DI_PATH_LIB_DI.'Collection.php';
 
 /**
  * external library Object-Freezer by Sebastian Bergmann

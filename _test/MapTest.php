@@ -1,21 +1,21 @@
 <?php
 
-/**
- * Bootstrapper of the Di Framework (absolute Path retrieval for Lib)
- */
-require_once '../Lib/Di/Bootstrap.php';
-
-/**
- * PHPUnit
- */
-require_once 'PHPUnit/Autoload.php';
-
-/**
- * The class we test: Di_Map
- */
-require_once '../Lib/Di/Collection.php';
-require_once '../Lib/Di/Dependency.php';
-require_once '../Lib/Di/Map.php';
+///**
+// * Bootstrapper of the Di Framework (absolute Path retrieval for Lib)
+// */
+//require_once '../Lib/Di/Bootstrap.php';
+//
+///**
+// * PHPUnit
+// */
+//require_once 'PHPUnit/Autoload.php';
+//
+///**
+// * The class we test: Di_Map
+// */
+//require_once '../Lib/Di/Collection.php';
+//require_once '../Lib/Di/Dependency.php';
+//require_once '../Lib/Di/Map.php';
 
 
 class DiTests_MapTest extends PHPUnit_Framework_TestCase
