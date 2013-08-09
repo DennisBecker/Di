@@ -1,9 +1,9 @@
 <?php
 
-//require_once '../Lib/Di/Bootstrap.php';
+//require_once '../lib/Di/Bootstrap.php';
 //require_once 'PHPUnit/Autoload.php';
 //
-//require_once '../Lib/Di/Parser/Annotation.php';
+//require_once '../lib/Di/Parser/Annotation.php';
 
 
 class DiTests_Parser_AnnotationTest extends PHPUnit_Framework_TestCase

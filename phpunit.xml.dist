@@ -17,12 +17,12 @@
 	</php>
 
 	<testsuite name="Di Test Suite">
-		<directory>./_test</directory>
+		<directory>./tests</directory>
 	</testsuite>
 
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">./Lib</directory>
+			<directory suffix=".php">./lib</directory>
 		</whitelist>
 	</filter>
 </phpunit>

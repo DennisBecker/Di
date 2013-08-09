@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Bootstrapper of the Di Framework (absolute Path retrieval for Lib)
+ * Bootstrapper of the Di Framework (absolute Path retrieval for lib)
  */
-require_once '../Lib/Di/Bootstrap.php';
+require_once '../lib/Di/Bootstrap.php';
 
 /**
  * PHPUnit

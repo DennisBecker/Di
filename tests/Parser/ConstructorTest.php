@@ -1,9 +1,9 @@
 <?php
 
-//require_once '../Lib/Di/Bootstrap.php';
+//require_once '../lib/Di/Bootstrap.php';
 //require_once 'PHPUnit/Autoload.php';
 //
-//require_once '../Lib/Di/Parser/Constructor.php';
+//require_once '../lib/Di/Parser/Constructor.php';
 
 class Bar1
 {

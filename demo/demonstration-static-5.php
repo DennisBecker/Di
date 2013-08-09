@@ -3,14 +3,15 @@
 /**
  * simple absolute path bootstrapping for better performance
  */
-require_once '../Lib/Di/Bootstrap.php';
+require_once '../lib/Di/Bootstrap.php';
 
 
 /**
- * Required classes (files) for static demonstration #1
+ * Required classes (files) for static demonstration #5
  */
 require_once DI_PATH_LIB_DI.'Collection.php';
 require_once DI_PATH_LIB_DI.'Importer/Json.php';
+require_once DI_PATH_LIB_DI.'Exporter/Json.php';
 require_once DI_PATH_LIB_DI.'Map/Static.php';
 require_once DI_PATH_LIB_DI.'Factory.php';
 require_once DI_PATH_LIB_DI.'Container.php';
@@ -62,86 +63,32 @@ $map->wire(
 
 
 /**
- * create instances of required classes
- * create instance of Di_Container and set factory created previously
+ * get instance of our exporter for static JSON exports
  */
-$factory    = new Di_Factory();
-$container  = Di_Container::getInstance();
-$container->setFactory($factory);
+$exporter = new Di_Exporter_Json();
 
 
 /**
- * store previously created dependency map in container
+ * set collection to exporter
  */
-$container->setMap($map);
+$exporter->setCollection($map->getCollection());
 
 
 /**
- * Everything should be in the right position. We create an instance of
- * class "Foo" now.
+ * set output to file tmp\map1.json
  */
-$Foo = $container->build('Foo', array('I am a custom argument!'));
+$exporter->setOutput(getcwd().DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'map1.json');
 
 
 /**
- * Test our created instance by calling method test()
+ * do the export
  */
-$Foo->test();
+$exporter->export();
 
-
-/**
- * Check against instance
- */
-if (get_class($Foo) === 'Foo') {
-    echo '<pre>Successfully created instance of class Foo.</pre>';
-}
-
-
-/**
- * Debug output
- */
-echo '<pre>';
-var_dump($Foo);
-echo '</pre>';
-
-
-/**
- * Now build a second instance of class Foo
- */
-$Foo2 = $container->build('Foo', array('I am an other custom argument!'));
-
-/**
- * Test our created instance by calling method test()
- */
-$Foo2->test();
-
-
-/**
- * Check against instance
- */
-if (get_class($Foo2) === 'Foo') {
-    echo '<pre>Successfully created instance of class Foo.</pre>';
-}
-
-
-/**
- * Debug output
- */
-echo '<pre>';
-var_dump($Foo2);
-echo '</pre>';
-
-
-/**
- * Check that we got two different instances
- */
-if ($Foo !== $Foo2) {
-    echo '<pre>Everything seems to works fine. We retrieved two separate instances.</pre>';
-}
+echo '<pre>Successfully exported map to file "'.getcwd().DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'map1.json'.'".</pre>';
 
 ?>
 
 <p>
     <a href="index.php#Demonstration">Back to index</a>
 </p>
-

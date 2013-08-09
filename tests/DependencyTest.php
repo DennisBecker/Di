@@ -1,8 +1,8 @@
 <?php
 
-//require_once '../Lib/Di/Bootstrap.php';
+//require_once '../lib/Di/Bootstrap.php';
 //require_once 'PHPUnit/Autoload.php';
-//require_once '../Lib/Di/Dependency.php';
+//require_once '../lib/Di/Dependency.php';
 
 
 class DiTests_DependencyTest extends PHPUnit_Framework_TestCase

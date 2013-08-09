@@ -3,15 +3,16 @@
 /**
  * simple absolute path bootstrapping for better performance
  */
-require_once '../Lib/Di/Bootstrap.php';
+require_once '../lib/Di/Bootstrap.php';
 
 
 /**
- * Required classes (files) for fluent demonstration #3
+ * Required classes (files) for typehint demonstration #1
  */
 require_once DI_PATH_LIB_DI.'Collection.php';
-require_once DI_PATH_LIB_DI.'Dependency.php';
-require_once DI_PATH_LIB_DI.'Map/Fluent.php';
+require_once DI_PATH_LIB_DI.'Parser/Typehint.php';
+require_once DI_PATH_LIB_DI.'Parser/Constructor.php';
+require_once DI_PATH_LIB_DI.'Map/Typehint.php';
 require_once DI_PATH_LIB_DI.'Factory.php';
 require_once DI_PATH_LIB_DI.'Container.php';
 
@@ -28,53 +29,39 @@ require_once 'class/Logger.php';
 
 
 /**
- * Create instances for wiring
- *
- * I've used the variable names $Database1 and $Logger1 to show you
- * the magic of automatic wiring in Demonstration #2. So i kept the
- * names always like in Demontration #2 so it easier to follow.
+ * create instances for wiring
  */
 $Database1 = new Database('mysql://user:password@server/database');
 $Logger1   = new Logger('Foo', 'Bar');
 
 
 /**
- * For the next step we need an plain Di_Map instance. The map could now
- * be filled like in Example #1 or #2 but i will show you how to make
- * use of the static map ...
+ * create instances of required classes
+ * create instance of Di_Map_Typehint and pass required classes as arguments to constructor
  */
-$collection = new Di_Collection();
-$dependency = new Di_Dependency();
-$map        = new Di_Map_Fluent($collection, $dependency);
+$collection         = new Di_Collection();
+$constructorParser  = new Di_Parser_Constructor();
+$parser             = new Di_Parser_Typehint($constructorParser);
+$dependency         = new Di_Dependency();
+$map                = new Di_Map_Typehint($collection, $parser, $dependency);
 
 
 /**
- * In this demonstration we create a map through fluent interface.
- * Here we bind the class "Database" with the existing instance "$Database1"
- * and the class "Logger" with its existing instance "$Logger1" to the class
- * Foo
+ * generate map from typehint(s) in source of class "Foo"
  */
-$map->generate()
-
-    ->classname('Bar', null, 'getInstance')
-
-    ->dependsOn('Database')
-    ->identifier('Database1')
-    ->configuration(
-        array('type' => Di_Dependency::TYPE_CONSTRUCTOR, 'position' => 1)
-    )
-
-    ->dependsOn('Logger')
-    ->identifier('Logger1')
-    ->configuration(
-        array('type' => Di_Dependency::TYPE_CONSTRUCTOR, 'position' => 2)
-    );
+$map->generate('Foo');
 
 
 /**
  * wire the instances automagically for class "Foo" (and all others?)
  */
-$map->wire();
+$map->wire(
+    Di_Map::WIRE_MODE_MANUAL,
+    array(
+        'Logger1'   => $Logger1,
+        'Database1' => $Database1
+    )
+);
 
 
 /**
@@ -96,20 +83,20 @@ $container->setMap($map);
  * Everything should be in the right position. We create an instance of
  * class "Foo" now.
  */
-$Bar = $container->build('Bar');
+$Foo = $container->build('Foo', array('I am a custom argument!'));
 
 
 /**
  * Test our created instance by calling method test()
  */
-$Bar->test();
+$Foo->test();
 
 
 /**
  * Check against instance
  */
-if (get_class($Bar) === 'Bar') {
-    echo '<pre>Successfully created instance of class Bar.</pre>';
+if (get_class($Foo) === 'Foo') {
+    echo '<pre>Successfully created instance of class Foo.</pre>';
 }
 
 
@@ -117,26 +104,26 @@ if (get_class($Bar) === 'Bar') {
  * Debug output
  */
 echo '<pre>';
-var_dump($Bar);
+var_dump($Foo);
 echo '</pre>';
 
 
 /**
- * Now build a second instance of class Bar
+ * Now build a second instance of class Foo
  */
-$Bar2 = $container->build('Bar');
+$Foo2 = $container->build('Foo', array('I am an other custom argument!'));
 
 /**
  * Test our created instance by calling method test()
  */
-$Bar2->test();
+$Foo2->test();
 
 
 /**
  * Check against instance
  */
-if (get_class($Bar2) === 'Bar') {
-    echo '<pre>Successfully created instance of class Bar.</pre>';
+if (get_class($Foo2) === 'Foo') {
+    echo '<pre>Successfully created instance of class Foo.</pre>';
 }
 
 
@@ -144,14 +131,14 @@ if (get_class($Bar2) === 'Bar') {
  * Debug output
  */
 echo '<pre>';
-var_dump($Bar2);
+var_dump($Foo2);
 echo '</pre>';
 
 
 /**
  * Check that we got two different instances
  */
-if ($Bar !== $Bar2) {
+if ($Foo !== $Foo2) {
     echo '<pre>Everything seems to works fine. We retrieved two separate instances.</pre>';
 }
 

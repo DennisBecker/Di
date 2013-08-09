@@ -3,15 +3,16 @@
 /**
  * simple absolute path bootstrapping for better performance
  */
-require_once '../Lib/Di/Bootstrap.php';
+require_once '../lib/Di/Bootstrap.php';
 
 
 /**
- * Required classes (files) for static demonstration #3
+ * Required classes (files) for typehint demonstration #3
  */
 require_once DI_PATH_LIB_DI.'Collection.php';
-require_once DI_PATH_LIB_DI.'Importer/Json.php';
-require_once DI_PATH_LIB_DI.'Map/Static.php';
+require_once DI_PATH_LIB_DI.'Parser/Typehint.php';
+require_once DI_PATH_LIB_DI.'Parser/Constructor.php';
+require_once DI_PATH_LIB_DI.'Map/Typehint.php';
 require_once DI_PATH_LIB_DI.'Factory.php';
 require_once DI_PATH_LIB_DI.'Container.php';
 
@@ -28,7 +29,7 @@ require_once 'class/Logger.php';
 
 
 /**
- * Create instances for wiring
+ * create instances for wiring
  */
 $Database1 = new Database('mysql://user:password@server/database');
 $Logger1   = new Logger('Foo', 'Bar');
@@ -36,21 +37,23 @@ $Logger1   = new Logger('Foo', 'Bar');
 
 /**
  * create instances of required classes
- * create instance of Di_Map_Annotation and pass required classes as arguments to constructor
+ * create instance of Di_Map_Typehint and pass required classes as arguments to constructor
  */
-$collection = new Di_Collection();
-$importer   = new Di_Importer_Json();
-$map        = new Di_Map_Static($collection, $importer);
+$collection         = new Di_Collection();
+$constructorParser  = new Di_Parser_Constructor();
+$parser             = new Di_Parser_Typehint($constructorParser);
+$dependency         = new Di_Dependency();
+$map                = new Di_Map_Typehint($collection, $parser, $dependency);
 
 
 /**
- * generate map from input "data/map3.json"
+ * generate map from typehint(s) in source of class "Foo"
  */
-$map->generate('data/map3.json');
+$map->generate('Bar');
 
 
 /**
- * wire the instances automagically for class "Foo" (and all others?)
+ * wire the instances automagically for class "Bar" (and all others?)
  */
 $map->wire();
 
@@ -138,4 +141,3 @@ if ($Bar !== $Bar2) {
 <p>
     <a href="index.php#Demonstration">Back to index</a>
 </p>
-

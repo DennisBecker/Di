@@ -1,9 +1,9 @@
 <?php
 
-//require_once '../Lib/Di/Bootstrap.php';
+//require_once '../lib/Di/Bootstrap.php';
 //require_once 'PHPUnit/Autoload.php';
 //
-//require_once '../Lib/Di/Importer/Json.php';
+//require_once '../lib/Di/Importer/Json.php';
 
 
 class DiTests_Importer_JsonTest extends PHPUnit_Framework_TestCase

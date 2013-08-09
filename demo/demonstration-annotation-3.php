@@ -3,16 +3,15 @@
 /**
  * simple absolute path bootstrapping for better performance
  */
-require_once '../Lib/Di/Bootstrap.php';
+require_once '../lib/Di/Bootstrap.php';
 
 
 /**
- * Required classes (files) for typehint demonstration #3
+ * Required classes (files) for annotation demonstration #2
  */
 require_once DI_PATH_LIB_DI.'Collection.php';
-require_once DI_PATH_LIB_DI.'Parser/Typehint.php';
-require_once DI_PATH_LIB_DI.'Parser/Constructor.php';
-require_once DI_PATH_LIB_DI.'Map/Typehint.php';
+require_once DI_PATH_LIB_DI.'Parser/Annotation.php';
+require_once DI_PATH_LIB_DI.'Map/Annotation.php';
 require_once DI_PATH_LIB_DI.'Factory.php';
 require_once DI_PATH_LIB_DI.'Container.php';
 
@@ -37,25 +36,30 @@ $Logger1   = new Logger('Foo', 'Bar');
 
 /**
  * create instances of required classes
- * create instance of Di_Map_Typehint and pass required classes as arguments to constructor
+ * create instance of Di_Map_Annotation and pass required classes as arguments to constructor
  */
-$collection         = new Di_Collection();
-$constructorParser  = new Di_Parser_Constructor();
-$parser             = new Di_Parser_Typehint($constructorParser);
-$dependency         = new Di_Dependency();
-$map                = new Di_Map_Typehint($collection, $parser, $dependency);
+$collection = new Di_Collection();
+$parser     = new Di_Parser_Annotation();
+$dependency = new Di_Dependency();
+$map        = new Di_Map_Annotation($collection, $parser, $dependency);
 
 
 /**
- * generate map from typehint(s) in source of class "Foo"
+ * generate map from annotation ins source of class "Bar"
  */
 $map->generate('Bar');
 
 
 /**
- * wire the instances automagically for class "Bar" (and all others?)
+ * wire the instances automagically for class "Foo" (and all others?)
  */
-$map->wire();
+$map->wire(
+    Di_Map::WIRE_MODE_MANUAL,
+    array(
+        'Logger1'   => $Logger1,
+        'Database1' => $Database1
+    )
+);
 
 
 /**
@@ -75,7 +79,7 @@ $container->setMap($map);
 
 /**
  * Everything should be in the right position. We create an instance of
- * class "Bar" now.
+ * class "Foo" now.
  */
 $Bar = $container->build('Bar');
 

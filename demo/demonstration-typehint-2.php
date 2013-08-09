@@ -3,11 +3,11 @@
 /**
  * simple absolute path bootstrapping for better performance
  */
-require_once '../Lib/Di/Bootstrap.php';
+require_once '../lib/Di/Bootstrap.php';
 
 
 /**
- * Required classes (files) for typehint demonstration #1
+ * Required classes (files) for typehint demonstration #2
  */
 require_once DI_PATH_LIB_DI.'Collection.php';
 require_once DI_PATH_LIB_DI.'Parser/Typehint.php';
@@ -55,13 +55,7 @@ $map->generate('Foo');
 /**
  * wire the instances automagically for class "Foo" (and all others?)
  */
-$map->wire(
-    Di_Map::WIRE_MODE_MANUAL,
-    array(
-        'Logger1'   => $Logger1,
-        'Database1' => $Database1
-    )
-);
+$map->wire();
 
 
 /**

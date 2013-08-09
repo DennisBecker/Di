@@ -3,16 +3,15 @@
 /**
  * simple absolute path bootstrapping for better performance
  */
-require_once '../Lib/Di/Bootstrap.php';
+require_once '../lib/Di/Bootstrap.php';
 
 
 /**
- * Required classes (files) for fluent demonstration #4
+ * Required classes (files) for static demonstration #1
  */
 require_once DI_PATH_LIB_DI.'Collection.php';
-require_once DI_PATH_LIB_DI.'Dependency.php';
-require_once DI_PATH_LIB_DI.'Map/Fluent.php';
-require_once DI_PATH_LIB_DI.'Exporter/Json.php';
+require_once DI_PATH_LIB_DI.'Importer/Json.php';
+require_once DI_PATH_LIB_DI.'Map/Static.php';
 require_once DI_PATH_LIB_DI.'Factory.php';
 require_once DI_PATH_LIB_DI.'Container.php';
 
@@ -30,52 +29,36 @@ require_once 'class/Logger.php';
 
 /**
  * Create instances for wiring
- *
- * I've used the variable names $Database1 and $Logger1 to show you
- * the magic of automatic wiring in Demonstration #2. So i kept the
- * names always like in Demontration #2 so it easier to follow.
  */
 $Database1 = new Database('mysql://user:password@server/database');
 $Logger1   = new Logger('Foo', 'Bar');
 
 
 /**
- * For the next step we need an plain Di_Map instance. The map could now
- * be filled like in Example #1 or #2 but i will show you how to make
- * use of the static map ...
+ * create instances of required classes
+ * create instance of Di_Map_Annotation and pass required classes as arguments to constructor
  */
 $collection = new Di_Collection();
-$dependency = new Di_Dependency();
-$map        = new Di_Map_Fluent($collection, $dependency);
+$importer   = new Di_Importer_Json();
+$map        = new Di_Map_Static($collection, $importer);
 
 
 /**
- * In this demonstration we create a map through fluent interface.
- * Here we bind the class "Database" with the existing instance "$Database1"
- * and the class "Logger" with its existing instance "$Logger1" to the class
- * Foo
+ * generate map from input "data/map1.json"
  */
-$map->generate()
-
-    ->classname('Foo', array('Foo', 'Bar'))
-
-    ->dependsOn('Database')
-    ->id('Database1')
-    ->configuration(
-        array('type' => Di_Dependency::TYPE_CONSTRUCTOR, 'position' => 1)
-    )
-
-    ->dependsOn('Logger')
-    ->id('Logger1')
-    ->configuration(
-        array('type' => Di_Dependency::TYPE_METHOD, 'value' => 'setLogger')
-    );
+$map->generate('data/map1.json');
 
 
 /**
  * wire the instances automagically for class "Foo" (and all others?)
  */
-$map->wire();
+$map->wire(
+    Di_Map::WIRE_MODE_MANUAL,
+    array(
+        'Logger1'   => $Logger1,
+        'Database1' => $Database1
+    )
+);
 
 
 /**
@@ -94,34 +77,10 @@ $container->setMap($map);
 
 
 /**
- * get instance of our exporter for static JSON exports
- */
-$exporter = new Di_Exporter_Json();
-
-
-/**
- * set collection to exporter
- */
-$exporter->setCollection($map->getCollection());
-
-
-/**
- * set output to file tmp\map1.json
- */
-$exporter->setOutput(getcwd().DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'FluentToStatic.json');
-
-
-/**
- * do the export
- */
-$exporter->export(false);
-
-
-/**
  * Everything should be in the right position. We create an instance of
  * class "Foo" now.
  */
-$Foo = $container->build('Foo');
+$Foo = $container->build('Foo', array('I am a custom argument!'));
 
 
 /**
@@ -149,7 +108,7 @@ echo '</pre>';
 /**
  * Now build a second instance of class Foo
  */
-$Foo2 = $container->build('Foo');
+$Foo2 = $container->build('Foo', array('I am an other custom argument!'));
 
 /**
  * Test our created instance by calling method test()
@@ -185,3 +144,4 @@ if ($Foo !== $Foo2) {
 <p>
     <a href="index.php#Demonstration">Back to index</a>
 </p>
+

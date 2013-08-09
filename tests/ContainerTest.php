@@ -1,14 +1,14 @@
 <?php
 
-//require_once '../Lib/Di/Bootstrap.php';
+//require_once '../lib/Di/Bootstrap.php';
 //require_once 'PHPUnit/Autoload.php';
 //
-//require_once '../Lib/Di/Dependency.php';
-//require_once '../Lib/Di/Collection.php';
-//require_once '../Lib/Di/Map.php';
-//require_once '../Lib/Di/Factory.php';
-//require_once '../Lib/Di/Container.php';
-require_once __DIR__ . '/../_demo/class/Foo.php';
+//require_once '../lib/Di/Dependency.php';
+//require_once '../lib/Di/Collection.php';
+//require_once '../lib/Di/Map.php';
+//require_once '../lib/Di/Factory.php';
+//require_once '../lib/Di/Container.php';
+require_once __DIR__ . '/../demo/class/Foo.php';
 
 
 class DiTests_ContainerTest extends PHPUnit_Framework_TestCase

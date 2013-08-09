@@ -1,9 +1,9 @@
 <?php
 
 ///**
-// * Bootstrapper of the Di Framework (absolute Path retrieval for Lib)
+// * Bootstrapper of the Di Framework (absolute Path retrieval for lib)
 // */
-//require_once '../Lib/Di/Bootstrap.php';
+//require_once '../lib/Di/Bootstrap.php';
 //
 ///**
 // * PHPUnit
@@ -13,9 +13,9 @@
 ///**
 // * The class we test: Di_Map
 // */
-//require_once '../Lib/Di/Collection.php';
-//require_once '../Lib/Di/Dependency.php';
-//require_once '../Lib/Di/Map.php';
+//require_once '../lib/Di/Collection.php';
+//require_once '../lib/Di/Dependency.php';
+//require_once '../lib/Di/Map.php';
 
 
 class DiTests_MapTest extends PHPUnit_Framework_TestCase

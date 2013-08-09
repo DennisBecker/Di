@@ -210,7 +210,7 @@
 
     <a name="Demonstration"></a>
   <h3>Demonstration</h3>
-    You will find detailed demonstrations (and the corresponding sourcecode) in the folder <a href="../_demo/" target="_blank">./_demo/</a>.<br />
+    You will find detailed demonstrations (and the corresponding sourcecode) in the folder <a href="/" target="_blank">./_demo/</a>.<br />
     This should give you a good overview of what is possible with <span>Di</span> and what is (currently) not. For example how to inject dependencies using a ...
     <ul>
         <li>
@@ -261,13 +261,13 @@
     </ul>
 
   <h3>API Documentation</h3>
-    The sourcecode is fully documented and you can find the documentation here <a href="../_doc/html/" target="_blank">./_doc/html/</a>.
+    The sourcecode is fully documented and you can find the documentation here <a href="../docs/html/" target="_blank">./_doc/html/</a>.
 
     <h3>Roadmap</h3>
     This is the current roadmap of new features:
     <ul>
         <li>
-            <p><strike>Map-builder which takes a <a href="../_doc/html/class_di___collection.html" target="_blank">Di_Collection</a> as input and creates (build/write) a <b>static</b> <i>dependency map</i> (e.g. in JSON-Format) of it</strike></p>
+            <p><strike>Map-builder which takes a <a href="../docs/html/class_di___collection.html" target="_blank">Di_Collection</a> as input and creates (build/write) a <b>static</b> <i>dependency map</i> (e.g. in JSON-Format) of it</strike></p>
         </li>
         <li>
             <p><strike>Storing of required dependencies within the static dependency map (PHP Object Freezer <a href="https://github.com/sebastianbergmann/php-object-freezer" target="_blank">https://github.com/sebastianbergmann/php-object-freezer</a>)</strike></p>

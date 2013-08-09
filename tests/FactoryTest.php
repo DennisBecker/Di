@@ -1,11 +1,11 @@
 <?php
 
-//require_once '../Lib/Di/Bootstrap.php';
+//require_once '../lib/Di/Bootstrap.php';
 //require_once 'PHPUnit/Autoload.php';
 //
-//require_once '../Lib/Di/Factory.php';
-//require_once '../Lib/Di/Dependency.php';
-//require_once '../_demo/class/Foo.php';
+//require_once '../lib/Di/Factory.php';
+//require_once '../lib/Di/Dependency.php';
+//require_once '../demo/class/Foo.php';
 
 class Bar {};
 

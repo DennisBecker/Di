@@ -3,15 +3,15 @@
 /**
  * simple absolute path bootstrapping for better performance
  */
-require_once '../Lib/Di/Bootstrap.php';
+require_once '../lib/Di/Bootstrap.php';
 
 
 /**
- * Required classes (files) for annotation demonstration #2
+ * Required classes (files) for static demonstration #3
  */
 require_once DI_PATH_LIB_DI.'Collection.php';
-require_once DI_PATH_LIB_DI.'Parser/Annotation.php';
-require_once DI_PATH_LIB_DI.'Map/Annotation.php';
+require_once DI_PATH_LIB_DI.'Importer/Json.php';
+require_once DI_PATH_LIB_DI.'Map/Static.php';
 require_once DI_PATH_LIB_DI.'Factory.php';
 require_once DI_PATH_LIB_DI.'Container.php';
 
@@ -28,7 +28,7 @@ require_once 'class/Logger.php';
 
 
 /**
- * create instances for wiring
+ * Create instances for wiring
  */
 $Database1 = new Database('mysql://user:password@server/database');
 $Logger1   = new Logger('Foo', 'Bar');
@@ -39,27 +39,20 @@ $Logger1   = new Logger('Foo', 'Bar');
  * create instance of Di_Map_Annotation and pass required classes as arguments to constructor
  */
 $collection = new Di_Collection();
-$parser     = new Di_Parser_Annotation();
-$dependency = new Di_Dependency();
-$map        = new Di_Map_Annotation($collection, $parser, $dependency);
+$importer   = new Di_Importer_Json();
+$map        = new Di_Map_Static($collection, $importer);
 
 
 /**
- * generate map from annotation ins source of class "Bar"
+ * generate map from input "data/map3.json"
  */
-$map->generate('Bar');
+$map->generate('data/map3.json');
 
 
 /**
  * wire the instances automagically for class "Foo" (and all others?)
  */
-$map->wire(
-    Di_Map::WIRE_MODE_MANUAL,
-    array(
-        'Logger1'   => $Logger1,
-        'Database1' => $Database1
-    )
-);
+$map->wire();
 
 
 /**
@@ -79,7 +72,7 @@ $container->setMap($map);
 
 /**
  * Everything should be in the right position. We create an instance of
- * class "Foo" now.
+ * class "Bar" now.
  */
 $Bar = $container->build('Bar');
 
@@ -145,3 +138,4 @@ if ($Bar !== $Bar2) {
 <p>
     <a href="index.php#Demonstration">Back to index</a>
 </p>
+
